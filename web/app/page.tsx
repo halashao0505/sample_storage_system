@@ -252,7 +252,7 @@ export default function Home() {
               <div className="trend-visuals">
                 <div className="line-chart-wrap">
                   <svg className="line-chart" viewBox={`0 0 ${trend.width} ${trend.height}`} role="img" aria-label={`${metricMeta[metric][0]}折线趋势图`}>
-                    <title>{metricMeta[metric][0]}随时间变化趋势</title>
+                    <title>{`${metricMeta[metric][0]}随时间变化趋势`}</title>
                     <defs>
                       <linearGradient id="trendArea" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="var(--brand)" stopOpacity=".24" />
