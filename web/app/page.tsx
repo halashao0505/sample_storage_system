@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type CSSProperties } from 'react';
 
 type Scope = 'all' | 'xafs' | 'xrd';
 type Metric = 'samples' | 'tests' | 'duration';
@@ -135,10 +135,28 @@ export default function Home() {
   const [queueKind, setQueueKind] = useState<'xafs' | 'xrd'>('xrd');
   const [mobileNav, setMobileNav] = useState(false);
 
-  const bars = useMemo(() => {
+  const trend = useMemo(() => {
     const factor = range === 'today' ? 1 : range === 'week' ? 0.92 : 0.84;
-    return chartSets[scope][metric].map((value) => Math.round(value * factor));
+    const values = chartSets[scope][metric].map((value) => Math.round(value * factor));
+    const width = 760;
+    const height = 238;
+    const left = 36;
+    const right = 18;
+    const top = 16;
+    const bottom = 30;
+    const x = (index: number) => left + index * ((width - left - right) / (values.length - 1));
+    const y = (value: number) => top + (100 - value) * ((height - top - bottom) / 100);
+    const points = values.map((value, index) => `${x(index)},${y(value)}`).join(' ');
+    const baseline = values.map((value, index) => `${x(index)},${y(Math.max(8, Math.round(value * .87)))}`).join(' ');
+    const area = `${left},${height - bottom} ${points} ${width - right},${height - bottom}`;
+    return { values, points, baseline, area, width, height, left, right, top, bottom, x, y };
   }, [scope, metric, range]);
+
+  const sampleMix = scope === 'all'
+    ? { xafs: 14, xrd: 24, share: 36.8 }
+    : scope === 'xafs'
+      ? { xafs: 14, xrd: 0, share: 100 }
+      : { xafs: 0, xrd: 24, share: 0 };
 
   return (
     <div className="app-shell">
@@ -231,18 +249,52 @@ export default function Home() {
                 <span>{metricMeta[metric][2]}</span>
                 <em>↗ 12.5%</em>
               </div>
-              <div className="bar-chart" role="img" aria-label={`${metricMeta[metric][0]}趋势柱状图`}>
-                <div className="y-axis"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
-                <div className="chart-grid">
-                  {bars.map((height, index) => (
-                    <div className="bar-cell" key={`${height}-${index}`}>
-                      <i style={{ height: `${height}%` }}><b /></i>
-                      <span>{index % 2 === 0 ? `${8 + index}:00` : ''}</span>
-                    </div>
-                  ))}
+              <div className="trend-visuals">
+                <div className="line-chart-wrap">
+                  <svg className="line-chart" viewBox={`0 0 ${trend.width} ${trend.height}`} role="img" aria-label={`${metricMeta[metric][0]}折线趋势图`}>
+                    <title>{metricMeta[metric][0]}随时间变化趋势</title>
+                    <defs>
+                      <linearGradient id="trendArea" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--brand)" stopOpacity=".24" />
+                        <stop offset="100%" stopColor="var(--brand)" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                    {[0, 25, 50, 75, 100].map((tick) => {
+                      const tickY = trend.y(tick);
+                      return (
+                        <g key={tick}>
+                          <line className="chart-grid-line" x1={trend.left} x2={trend.width - trend.right} y1={tickY} y2={tickY} />
+                          <text className="chart-axis-label" x={trend.left - 9} y={tickY + 3} textAnchor="end">{tick}</text>
+                        </g>
+                      );
+                    })}
+                    <polygon className="trend-area" points={trend.area} />
+                    <polyline className="baseline-line" points={trend.baseline} />
+                    <polyline className="trend-line" points={trend.points} />
+                    {trend.values.map((value, index) => (
+                      <g className="trend-point" key={`${value}-${index}`}>
+                        <circle cx={trend.x(index)} cy={trend.y(value)} r="4"><title>{`${8 + index}:00 · ${value}`}</title></circle>
+                        {[0, 4, 8, 13].includes(index) && (
+                          <text className="chart-axis-label x-label" x={trend.x(index)} y={trend.height - 8} textAnchor={index === 0 ? 'start' : index === 13 ? 'end' : 'middle'}>{`${8 + index}:00`}</text>
+                        )}
+                      </g>
+                    ))}
+                  </svg>
+                  <div className="chart-legend"><span><i className="legend-all" />当前范围</span><span><i className="legend-baseline" />昨日基线</span></div>
                 </div>
+                <aside className="mix-chart" aria-label={`样品构成：XAFS ${sampleMix.xafs}，XRD ${sampleMix.xrd}`}>
+                  <div className="mix-title"><strong>样品构成</strong><span>今日</span></div>
+                  <div className="donut-stage">
+                    <div className="donut-chart" style={{ '--xafs-share': `${sampleMix.share}%` } as CSSProperties}>
+                      <div><strong>{sampleMix.xafs + sampleMix.xrd}</strong><span>总样品</span></div>
+                    </div>
+                  </div>
+                  <div className="mix-legend">
+                    <div><i className="xafs-dot" /><span>XAFS</span><strong>{sampleMix.xafs}</strong></div>
+                    <div><i className="xrd-dot" /><span>XRD</span><strong>{sampleMix.xrd}</strong></div>
+                  </div>
+                </aside>
               </div>
-              <div className="chart-legend"><span><i className="legend-all" />当前范围</span><span><i className="legend-baseline" />昨日基线</span></div>
             </article>
 
             <section className="instrument-board" aria-label="谱仪实时运行状态">
