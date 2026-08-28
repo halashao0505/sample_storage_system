@@ -1,0 +1,17 @@
+.idea/
+.venv/
+__pycache__/
+*.py[cod]
+
+.env
+.env.*
+!.env.example
+
+web/node_modules/
+web/.next/
+web/.vinext/
+web/.vite/
+web/.wrangler/
+web/dist/
+web/next-env.d.ts
+
