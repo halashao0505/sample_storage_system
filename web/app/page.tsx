@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, type CSSProperties } from 'react';
+import { useMemo, useState } from 'react';
 
 type Scope = 'all' | 'xafs' | 'xrd';
 type Metric = 'samples' | 'tests' | 'duration';
@@ -152,11 +152,11 @@ export default function Home() {
     return { values, points, baseline, area, width, height, left, right, top, bottom, x, y };
   }, [scope, metric, range]);
 
-  const sampleMix = scope === 'all'
-    ? { xafs: 14, xrd: 24, share: 36.8 }
-    : scope === 'xafs'
-      ? { xafs: 14, xrd: 0, share: 100 }
-      : { xafs: 0, xrd: 24, share: 0 };
+  const operationData = {
+    all: { completed: 26, running: 2, waiting: 11, completion: 67 },
+    xafs: { completed: 9, running: 1, waiting: 4, completion: 64 },
+    xrd: { completed: 17, running: 1, waiting: 7, completion: 68 },
+  }[scope];
 
   return (
     <div className="app-shell">
@@ -282,16 +282,18 @@ export default function Home() {
                   </svg>
                   <div className="chart-legend"><span><i className="legend-all" />当前范围</span><span><i className="legend-baseline" />昨日基线</span></div>
                 </div>
-                <aside className="mix-chart" aria-label={`样品构成：XAFS ${sampleMix.xafs}，XRD ${sampleMix.xrd}`}>
-                  <div className="mix-title"><strong>样品构成</strong><span>今日</span></div>
-                  <div className="donut-stage">
-                    <div className="donut-chart" style={{ '--xafs-share': `${sampleMix.share}%` } as CSSProperties}>
-                      <div><strong>{sampleMix.xafs + sampleMix.xrd}</strong><span>总样品</span></div>
+                <aside className="operation-chart" aria-label={`今日任务状态：已完成 ${operationData.completed}，执行中 ${operationData.running}，待测试 ${operationData.waiting}`}>
+                  <div className="operation-title"><strong>今日运行节奏</strong><span>实时</span></div>
+                  <div className="completion-overview">
+                    <div className="completion-ring" style={{ background: `conic-gradient(var(--brand) 0 ${operationData.completion}%, #eaf0f7 ${operationData.completion}% 100%)` }}>
+                      <div><strong>{operationData.completion}%</strong><span>完成度</span></div>
                     </div>
+                    <p><strong>{operationData.completed}</strong><span>项已完成</span></p>
                   </div>
-                  <div className="mix-legend">
-                    <div><i className="xafs-dot" /><span>XAFS</span><strong>{sampleMix.xafs}</strong></div>
-                    <div><i className="xrd-dot" /><span>XRD</span><strong>{sampleMix.xrd}</strong></div>
+                  <div className="operation-list">
+                    <div><i className="done-dot" /><span>已完成</span><strong>{operationData.completed}</strong></div>
+                    <div><i className="running-dot" /><span>并行执行</span><strong>{operationData.running}</strong></div>
+                    <div><i className="waiting-dot" /><span>待测试</span><strong>{operationData.waiting}</strong></div>
                   </div>
                 </aside>
               </div>
