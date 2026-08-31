@@ -44,6 +44,14 @@ export type TrendMetric = 'samples' | 'tests' | 'duration';
 export type TrendRange = 'today' | 'week' | 'month';
 
 export type TrendSeries = Record<TrendRange, number[]>;
+export type RangeStatistics = {
+  submitted: number;
+  completed: number;
+  pending: number;
+  running: number;
+  failed: number;
+};
+export type DashboardStatistics = Record<TrendRange, RangeStatistics>;
 export type CommunicationState = 'connected' | 'disconnected' | 'waiting';
 
 export type CommunicationStatus = {
@@ -65,6 +73,8 @@ export type TechniqueSnapshot = {
   records: SampleRecord[];
   queue: QueueItem[];
   trends: TrendSeries;
+  /** 平台按周期汇总的业务统计；未提供时网页会从当前 records 做保守统计。 */
+  statistics?: DashboardStatistics;
   technique_payload?: Record<string, unknown>;
 };
 

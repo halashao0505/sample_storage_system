@@ -25,6 +25,15 @@ export default async function Home() {
       week: today.map((value) => Math.round(value * .92)),
       month: today.map((value) => Math.round(value * .84)),
     },
+    statistics: technique === 'xafs' ? {
+      today: { submitted: 51, completed: 36, pending: 11, running: 1, failed: 3 },
+      week: { submitted: 286, completed: 251, pending: 22, running: 1, failed: 12 },
+      month: { submitted: 1128, completed: 1015, pending: 72, running: 1, failed: 40 },
+    } : {
+      today: { submitted: 76, completed: 61, pending: 12, running: 1, failed: 2 },
+      week: { submitted: 412, completed: 372, pending: 25, running: 1, failed: 14 },
+      month: { submitted: 1684, completed: 1536, pending: 96, running: 1, failed: 51 },
+    },
   };
 
   return <DashboardBoard technique={technique} initialSnapshot={initialSnapshot} />;

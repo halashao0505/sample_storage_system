@@ -62,6 +62,7 @@ SDK 默认使用 HTTP/1.1 Keep-Alive 保持连接。连接意外中断时自动�
 | `records` | array | 是 | 本页显示的样品记录，最多 200 条 |
 | `queue` | array | 是 | 当前谱仪待测队列，最多 100 条 |
 | `trends` | object | 是 | `today/week/month` 三组趋势数组 |
+| `statistics` | object | 否 | 平台业务统计；按周期提供提交、完成、待测、测试中和异常数量 |
 | `technique_payload` | object | 否 | XAFS/XRD 专属字段；平台原样保存，不参与公共业务判断 |
 
 ### instrument
@@ -117,6 +118,18 @@ SDK 默认使用 HTTP/1.1 Keep-Alive 保持连接。连接意外中断时自动�
 ```
 
 三组都必须存在，每组至少 1 个、最多 120 个非负数。网页按当前键盘选择直接使用对应数组，不会再自行伪造 7 日或 30 日数据。
+
+### statistics（推荐由样品数据库或排队系统提供）
+
+```json
+{
+  "today": {"submitted": 51, "completed": 36, "pending": 11, "running": 1, "failed": 3},
+  "week": {"submitted": 286, "completed": 251, "pending": 22, "running": 1, "failed": 12},
+  "month": {"submitted": 1128, "completed": 1015, "pending": 72, "running": 1, "failed": 40}
+}
+```
+
+每个周期的五个字段必须是非负整数，且 `completed + pending + running + failed = submitted`。该字段可不传；不传时网页只会依据当前 `records` 做保守统计。提交量等业务数据通常应由数据库/JSON 汇总层计算，不建议由仪器底层猜测。
 
 ## 5. HTTP 接口
 

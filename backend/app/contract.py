@@ -100,6 +100,24 @@ def _queue_item(item: Any, technique: str, index: int) -> dict[str, Any]:
     }
 
 
+def _statistics(value: Any) -> dict[str, dict[str, int]]:
+    """校验平台汇总数据；五种状态之和必须等于提交数。"""
+    source = _object(value, "statistics")
+    normalized: dict[str, dict[str, int]] = {}
+    for range_name in TREND_RANGES:
+        item = _object(source.get(range_name), f"statistics.{range_name}")
+        counts: dict[str, int] = {}
+        for name in ("submitted", "completed", "pending", "running", "failed"):
+            count = _number(item.get(name), f"statistics.{range_name}.{name}", 0)
+            if not isinstance(count, int):
+                raise ContractError(f"statistics.{range_name}.{name} 必须是整数")
+            counts[name] = count
+        if counts["completed"] + counts["pending"] + counts["running"] + counts["failed"] != counts["submitted"]:
+            raise ContractError(f"statistics.{range_name} 各状态之和必须等于 submitted")
+        normalized[range_name] = counts
+    return normalized
+
+
 def validate_snapshot(payload: Any, technique: str) -> dict[str, Any]:
     """校验并规范化一帧完整看板数据。"""
     if technique not in TECHNIQUES:
@@ -132,6 +150,7 @@ def validate_snapshot(payload: Any, technique: str) -> dict[str, Any]:
 
     active_sample_id = instrument.get("activeSampleId")
     technique_payload = _object(value.get("technique_payload", {}), "technique_payload")
+    statistics = _statistics(value["statistics"]) if value.get("statistics") is not None else None
     return {
         "schema_version": 1,
         "technique": technique,
@@ -153,6 +172,7 @@ def validate_snapshot(payload: Any, technique: str) -> dict[str, Any]:
         "records": [_sample(item, technique, i) for i, item in enumerate(_array(value.get("records", []), "records", 200))],
         "queue": [_queue_item(item, technique, i) for i, item in enumerate(_array(value.get("queue", []), "queue", 100))],
         "trends": normalized_trends,
+        **({"statistics": statistics} if statistics is not None else {}),
         "technique_payload": technique_payload,
     }
 

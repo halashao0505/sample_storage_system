@@ -1,13 +1,14 @@
-import type { SampleTechnique, TrendMetric } from '../../lib/samples/types';
+import type { SampleTechnique, TrendMetric, TrendRange } from '../../lib/samples/types';
 
 type ReadOnlyTrendChartProps = {
   values: number[];
   technique: SampleTechnique;
   metric: TrendMetric;
+  range: TrendRange;
   rangeLabel: string;
 };
 
-export function ReadOnlyTrendChart({ values, technique, metric, rangeLabel }: ReadOnlyTrendChartProps) {
+export function ReadOnlyTrendChart({ values, technique, metric, range, rangeLabel }: ReadOnlyTrendChartProps) {
   const width = 1000; const height = 260; const left = 58; const right = 38; const top = 24; const bottom = 36;
   const chartMaximum = Math.max(100, Math.ceil(Math.max(...values, 0) / 25) * 25);
   const x = (index: number) => left + index * ((width - left - right) / Math.max(1, values.length - 1));
@@ -17,6 +18,13 @@ export function ReadOnlyTrendChart({ values, technique, metric, rangeLabel }: Re
   const area = `${left},${height - bottom} ${points} ${width - right},${height - bottom}`;
   const accent = technique === 'xafs' ? '#7654cf' : '#238ba3';
   const metricLabels: Record<TrendMetric, string> = { samples: '样品数', tests: '测试次数', duration: '测试时长' };
+  const labelIndexes = [...new Set([0, Math.round((values.length - 1) / 3), Math.round((values.length - 1) * 2 / 3), values.length - 1])];
+  const axisLabel = (index: number) => {
+    const slot = Math.max(0, labelIndexes.indexOf(index));
+    if (range === 'today') return ['8:00', '12:00', '16:00', '21:00'][slot];
+    if (range === 'week') return ['7 日前', '5 日前', '3 日前', '今日'][slot];
+    return ['30 日前', '20 日前', '10 日前', '今日'][slot];
+  };
 
   return <div className="readonly-chart-wrap">
     <div className="readonly-chart-meta"><span>{metricLabels[metric]} · {rangeLabel}</span><strong className="wave-value">{values.at(-1) ?? 0}</strong></div>
@@ -27,8 +35,8 @@ export function ReadOnlyTrendChart({ values, technique, metric, rangeLabel }: Re
       <polyline className="baseline-line" points={baseline} />
       <polyline className="readonly-trend-line" vectorEffect="non-scaling-stroke" style={{ stroke: accent }} points={points} />
       <polyline className="readonly-trend-wave" vectorEffect="non-scaling-stroke" style={{ stroke: `url(#wave-${technique})` }} points={points} />
-      {values.map((value, index) => <g key={`${value}-${index}`}><text className="readonly-point-value" x={x(index)} y={y(value) - 12} textAnchor="middle" style={{ fill: accent }}>{value}</text><circle className="readonly-trend-point" vectorEffect="non-scaling-stroke" cx={x(index)} cy={y(value)} r="4.5" style={{ stroke: accent }} />{[0, 4, 8, 13].includes(index) && <text className="chart-axis-label" x={x(index)} y={height - 9} textAnchor={index === 0 ? 'start' : index === values.length - 1 ? 'end' : 'middle'}>{`${8 + index}:00`}</text>}</g>)}
+      {values.map((value, index) => <g key={`${value}-${index}`}><text className="readonly-point-value" x={x(index)} y={y(value) - 12} textAnchor="middle" style={{ fill: accent }}>{value}</text><circle className="readonly-trend-point" vectorEffect="non-scaling-stroke" cx={x(index)} cy={y(value)} r="4.5" style={{ stroke: accent }} />{labelIndexes.includes(index) && <text className="chart-axis-label" x={x(index)} y={height - 9} textAnchor={index === 0 ? 'start' : index === values.length - 1 ? 'end' : 'middle'}>{axisLabel(index)}</text>}</g>)}
     </svg>
-    <div className="readonly-chart-legend"><span><i style={{ background: accent }} />当前趋势</span><span><i className="legend-baseline" />昨日基线</span></div>
+    <div className="readonly-chart-legend"><span><i style={{ background: accent }} />当前趋势</span><span><i className="legend-baseline" />{range === 'today' ? '昨日基线' : '上周期基线'}</span></div>
   </div>;
 }

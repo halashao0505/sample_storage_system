@@ -45,6 +45,11 @@
     "week": [18, 23, 20, 32, 29, 40, 36, 46, 41, 52, 44, 57, 53, 47],
     "month": [16, 21, 18, 29, 26, 36, 33, 42, 37, 48, 40, 52, 49, 43]
   },
+  "statistics": {
+    "today": {"submitted": 51, "completed": 36, "pending": 11, "running": 1, "failed": 3},
+    "week": {"submitted": 286, "completed": 251, "pending": 22, "running": 1, "failed": 12},
+    "month": {"submitted": 1128, "completed": 1015, "pending": 72, "running": 1, "failed": 40}
+  },
   "technique_payload": {
     "input_axis": "energy",
     "theta_deg": 12.345,

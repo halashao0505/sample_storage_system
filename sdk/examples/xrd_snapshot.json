@@ -45,6 +45,11 @@
     "week": [28, 38, 34, 49, 43, 57, 52, 64, 60, 73, 66, 79, 75, 70],
     "month": [25, 34, 31, 45, 40, 52, 47, 59, 55, 66, 60, 72, 69, 64]
   },
+  "statistics": {
+    "today": {"submitted": 76, "completed": 61, "pending": 12, "running": 1, "failed": 2},
+    "week": {"submitted": 412, "completed": 372, "pending": 25, "running": 1, "failed": 14},
+    "month": {"submitted": 1684, "completed": 1536, "pending": 96, "running": 1, "failed": 51}
+  },
   "technique_payload": {
     "two_theta": 35.27,
     "station": "D9",
