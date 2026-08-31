@@ -13,6 +13,7 @@
 7. [DB 与 JSON 读取扩展规划](docs/07_LEGACY_DB_JSON_COMPATIBILITY.md)
 8. [JSON 通信接口与 SDK](docs/08_JSON_SDK_AND_COMMUNICATION.md)
 9. [初学者连接与长连接指南](docs/09_BEGINNER_CONNECTION_GUIDE.md)
+10. [局域网双屏部署](docs/10_LAN_DUAL_SCREEN_DEPLOYMENT.md)
 
 ## 已确定的原则
 
