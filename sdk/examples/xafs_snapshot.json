@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "technique": "xafs",
+  "source_instance_id": "xafs-main-01",
+  "source_event_id": "xafs-frame-000001",
+  "observed_at": "2026-08-31T10:00:00+08:00",
+  "instrument": {
+    "id": "xafs-01",
+    "name": "XAFS-01",
+    "connection": "online",
+    "activeSampleId": "ZJUT-260831-028",
+    "currentValue": "7125.4 eV",
+    "scanProgress": 72,
+    "totalPoints": 1000,
+    "scannedPoints": 726,
+    "remaining": "03:21"
+  },
+  "records": [
+    {
+      "id": "ZJUT-260831-028",
+      "name": "Ni foil",
+      "applicant": "王五",
+      "group": "材料表征组",
+      "technique": "xafs",
+      "instrument": "XAFS-01",
+      "state": "running",
+      "startedAt": "09:26",
+      "duration": "14m 06s",
+      "progress": 72,
+      "tags": ["金属标准样", "K-edge"]
+    }
+  ],
+  "queue": [
+    {
+      "position": 1,
+      "sampleId": "ZJUT-260831-023",
+      "sampleName": "Cu foil",
+      "technique": "xafs",
+      "scheduledAt": "10:06",
+      "estimate": "18 min"
+    }
+  ],
+  "trends": {
+    "today": [20, 25, 22, 35, 31, 43, 39, 50, 44, 57, 48, 62, 58, 51],
+    "week": [18, 23, 20, 32, 29, 40, 36, 46, 41, 52, 44, 57, 53, 47],
+    "month": [16, 21, 18, 29, 26, 36, 33, 42, 37, 48, 40, 52, 49, 43]
+  },
+  "technique_payload": {
+    "input_axis": "energy",
+    "theta_deg": 12.345,
+    "roi_count_rate_cps": 18240.5
+  }
+}

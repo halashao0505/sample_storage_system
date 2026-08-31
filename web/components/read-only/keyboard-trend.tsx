@@ -1,16 +1,14 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReadOnlyTrendChart } from './trend-chart';
-import type { SampleTechnique } from '../../lib/samples/types';
+import type { CommunicationStatus, SampleTechnique, TrendRange, TrendSeries } from '../../lib/samples/types';
 
-type TrendRange = 'today' | 'week' | 'month';
 const ranges: TrendRange[] = ['today', 'week', 'month'];
 const labels: Record<TrendRange, string> = { today: '今日', week: '7 日', month: '30 日' };
 
-export function KeyboardTrend({ technique, values, syncedAt }: { technique: SampleTechnique; values: number[]; syncedAt: string }) {
+export function KeyboardTrend({ technique, values, communication }: { technique: SampleTechnique; values: TrendSeries; communication: CommunicationStatus }) {
   const [range, setRange] = useState<TrendRange>('today');
-  const displayedValues = useMemo(() => values.map((value) => Math.round(value * (range === 'today' ? 1 : range === 'week' ? .92 : .84))), [range, values]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -36,5 +34,9 @@ export function KeyboardTrend({ technique, values, syncedAt }: { technique: Samp
     return () => document.removeEventListener('keydown', onKeyDown, true);
   }, []);
 
-  return <><header className="readonly-panel-header"><div><span className={`readonly-kicker ${technique}`}>{technique.toUpperCase()}</span><h1>测试趋势</h1></div><span className="readonly-update">数据同步 · {syncedAt}</span></header><div className="trend-range-status" aria-label="趋势范围"><span className={range === 'today' ? 'active' : ''}>今日</span><i>Alt + ↑ / ↓</i><span className={range === 'week' ? 'active' : ''}>7 日</span><span className={range === 'month' ? 'active' : ''}>30 日</span></div><ReadOnlyTrendChart values={displayedValues} technique={technique} metric="samples" rangeLabel={labels[range]} /><p className="keyboard-hint">Alt + 1：XAFS　·　Alt + 2：XRD</p></>;
+  const updateText = communication.state === 'connected'
+    ? '数据同步 · 每 3 秒'
+    : communication.state === 'waiting' ? '等待首次数据' : '通讯中断 · 显示最后数据';
+
+  return <><header className="readonly-panel-header"><div><span className={`readonly-kicker ${technique}`}>{technique.toUpperCase()}</span><h1>测试趋势</h1></div><span className={`readonly-update ${communication.state}`}>{updateText}</span></header><div className="trend-range-status" aria-label="趋势范围"><span className={range === 'today' ? 'active' : ''}>今日</span><i>Alt + ↑ / ↓</i><span className={range === 'week' ? 'active' : ''}>7 日</span><span className={range === 'month' ? 'active' : ''}>30 日</span></div><ReadOnlyTrendChart values={values[range]} technique={technique} metric="samples" rangeLabel={labels[range]} /><p className="keyboard-hint">Alt + 1：XAFS　·　Alt + 2：XRD</p></>;
 }

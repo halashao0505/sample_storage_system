@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sample-platform-sdk"
+version = "1.0.0"
+description = "浙江工业大学样品测试平台 JSON 通信 SDK"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sample_platform_sdk*"]

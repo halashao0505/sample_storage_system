@@ -1,5 +1,7 @@
 # 04 XAFS/XRD 接入与 API 契约
 
+> 实施状态：当前已完成看板所需的健康检查、快照读取、快照上报和心跳 4 类 JSON 接口，以及 Python SDK、3 秒网页轮询和断连显示，详见 `08_JSON_SDK_AND_COMMUNICATION.md` 与 `sdk/README.md`。本文件第 8～10 节的样品 CRUD、队列写操作、数据库接口和 SSE 属于后续业务平台范围，尚未实现。
+
 ## 1. XAFS 现有能力盘点
 
 当前父项目已经具备：

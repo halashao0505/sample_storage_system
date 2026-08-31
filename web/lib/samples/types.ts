@@ -43,6 +43,39 @@ export type QueueItem = {
 export type TrendMetric = 'samples' | 'tests' | 'duration';
 export type TrendRange = 'today' | 'week' | 'month';
 
+export type TrendSeries = Record<TrendRange, number[]>;
+export type CommunicationState = 'connected' | 'disconnected' | 'waiting';
+
+export type CommunicationStatus = {
+  state: CommunicationState;
+  message: string;
+  last_received_at: string | null;
+  age_seconds: number | null;
+  timeout_seconds: number;
+};
+
+/** XAFS/XRD 控制程序每次通过 SDK 上报的一帧完整只读数据。 */
+export type TechniqueSnapshot = {
+  schema_version: 1;
+  technique: SampleTechnique;
+  source_instance_id: string;
+  source_event_id: string;
+  observed_at: string;
+  instrument: InstrumentStatus;
+  records: SampleRecord[];
+  queue: QueueItem[];
+  trends: TrendSeries;
+  technique_payload?: Record<string, unknown>;
+};
+
+export type DashboardApiResponse = {
+  schema_version: 1;
+  request_id: string;
+  server_time: string;
+  communication: CommunicationStatus;
+  snapshot: TechniqueSnapshot | null;
+};
+
 export type DashboardSnapshot = {
   source: DataSourceKind;
   syncedAt: string;

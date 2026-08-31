@@ -1,4 +1,13 @@
 @echo off
+cd /d "%~dp0"
+
+where python >nul 2>nul
+if errorlevel 1 (
+    echo Python was not found. Install Python 3.10 or newer first.
+    pause
+    exit /b 1
+)
+
 cd /d "%~dp0web"
 
 where npm >nul 2>nul
@@ -26,6 +35,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
+start "Sample Platform API" cmd /k "cd /d ""%~dp0"" && python main.py"
 start "XAFS Sample Platform" cmd /k "cd /d ""%~dp0web"" && npm run start:xafs"
 start "XRD Sample Platform" cmd /k "cd /d ""%~dp0web"" && npm run start:xrd"
 ping 127.0.0.1 -n 4 >nul

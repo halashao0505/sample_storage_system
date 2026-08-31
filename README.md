@@ -11,6 +11,7 @@
 5. [网页信息架构与视觉规范](docs/05_WEB_DESIGN.md)
 6. [实施路线图与验收标准](docs/06_ROADMAP.md)
 7. [DB 与 JSON 读取扩展规划](docs/07_LEGACY_DB_JSON_COMPATIBILITY.md)
+8. [JSON 通信接口与 SDK](docs/08_JSON_SDK_AND_COMMUNICATION.md)
 
 ## 已确定的原则
 
@@ -26,10 +27,11 @@
 
 ## 本地查看网页
 
-Windows 下直接双击根目录的 `启动样品平台.bat`。脚本会在首次运行时安装依赖、自动构建，并同时启动两套只读界面：
+Windows 下直接双击根目录的 `启动样品平台.bat`。脚本会启动 JSON 接口服务、自动构建，并同时启动两套只读界面：
 
 - XAFS：<http://localhost:3101/>
 - XRD：<http://localhost:3102/>
+- JSON 接口健康检查：<http://localhost:3200/api/v1/health>
 
 不需要手动执行 `npm run build`。两个端口启动后，双击 `测试样品平台.bat` 可以检查 XAFS / XRD 是否均可访问。
 
@@ -43,4 +45,6 @@ npm run start:xafs
 npm run start:xrd
 ```
 
-当前 `web` 目录是第一阶段网页原型；后端、业务数据库、外部 DB/JSON 读取器将在架构确认后按路线图逐步实现。
+网页每 3 秒读取一次状态。控制程序连续 10 秒没有通过 SDK 发送快照或心跳时，页面显示通讯中断并保留最后可信数据。SDK 安装、完整 JSON 参数和接入示例见 [`sdk/README.md`](sdk/README.md)。
+
+当前后端是第一阶段只读通信网关；正式样品业务数据库、外部 DB/JSON 读取器仍按真实数据样例逐步实现。
