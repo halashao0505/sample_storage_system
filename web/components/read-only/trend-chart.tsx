@@ -8,7 +8,7 @@ type ReadOnlyTrendChartProps = {
 };
 
 export function ReadOnlyTrendChart({ values, technique, metric, rangeLabel }: ReadOnlyTrendChartProps) {
-  const width = 760; const height = 238; const left = 36; const right = 18; const top = 16; const bottom = 30;
+  const width = 760; const height = 282; const left = 36; const right = 18; const top = 23; const bottom = 32;
   const x = (index: number) => left + index * ((width - left - right) / (values.length - 1));
   const y = (value: number) => top + (100 - value) * ((height - top - bottom) / 100);
   const points = values.map((value, index) => `${x(index)},${y(value)}`).join(' ');
@@ -26,7 +26,7 @@ export function ReadOnlyTrendChart({ values, technique, metric, rangeLabel }: Re
       <polyline className="baseline-line" points={baseline} />
       <polyline className="readonly-trend-line" style={{ stroke: accent }} points={points} />
       <polyline className="readonly-trend-wave" style={{ stroke: `url(#wave-${technique})` }} points={points} />
-      {values.map((value, index) => <g key={`${value}-${index}`}><circle className="readonly-trend-point" cx={x(index)} cy={y(value)} r="3.6" style={{ stroke: accent }} />{[0, 4, 8, 13].includes(index) && <text className="chart-axis-label" x={x(index)} y={height - 8} textAnchor={index === 0 ? 'start' : index === 13 ? 'end' : 'middle'}>{`${8 + index}:00`}</text>}</g>)}
+      {values.map((value, index) => <g key={`${value}-${index}`}><text className="readonly-point-value" x={x(index)} y={y(value) - 10} textAnchor="middle" style={{ fill: accent }}>{value}</text><circle className="readonly-trend-point" cx={x(index)} cy={y(value)} r="3.6" style={{ stroke: accent }} />{[0, 4, 8, 13].includes(index) && <text className="chart-axis-label" x={x(index)} y={height - 8} textAnchor={index === 0 ? 'start' : index === 13 ? 'end' : 'middle'}>{`${8 + index}:00`}</text>}</g>)}
     </svg>
     <div className="readonly-chart-legend"><span><i style={{ background: accent }} />当前趋势</span><span><i className="legend-baseline" />昨日基线</span></div>
   </div>;

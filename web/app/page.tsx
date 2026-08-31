@@ -17,7 +17,7 @@ export default async function Home() {
   if (!instrument) return null;
 
   return <main className="readonly-board" data-instrument={technique}>
-    <header className="readonly-topbar"><span className="readonly-brand-symbol">Z</span><div><strong>样品测试平台</strong><span>Sample Testing Platform</span></div></header>
+    <header className="readonly-brand"><span className="readonly-brand-symbol">Z</span><div><strong>样品测试平台</strong><span>Sample Testing Platform</span></div></header>
     <section className="readonly-grid" aria-label={`${techniqueLabel} 样品测试阅览`}>
       <article className="readonly-panel readonly-trend-panel"><KeyboardTrend technique={technique} values={trend} syncedAt={dashboardSnapshot.syncedAt} /></article>
       <article className="readonly-panel readonly-device-panel"><header className="readonly-panel-header"><div><span className={`readonly-kicker ${technique}`}>{techniqueLabel}</span><h2>设备状态</h2></div></header><InstrumentReadout instrument={instrument} sample={activeSample} /></article>
