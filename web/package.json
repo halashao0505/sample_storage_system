@@ -8,6 +8,10 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "start:xafs": "vinext start --port 3101",
+    "start:xrd": "vinext start --port 3102",
+    "test:xafs": "node scripts/check-dashboard.mjs xafs http://127.0.0.1:3101",
+    "test:xrd": "node scripts/check-dashboard.mjs xrd http://127.0.0.1:3102",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
