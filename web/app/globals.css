@@ -169,3 +169,10 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 
 .readonly-update.disconnected { display:flex; align-items:center; gap:6px; color:#8995a6; font-weight:600; }.readonly-update.disconnected::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--danger); }
 .live-status.offline { color:#8692a3; }.live-status.offline i { background:var(--danger); }
+
+/* 趋势标题区保持克制；环形统计跟随 XAFS/XRD 的设备主题色。 */
+.readonly-trend-panel::after { display:none; }
+.system-readout.xafs { --donut-done:rgb(102 126 224 / 80%); --donut-running:rgb(118 84 207 / 80%); --donut-pending:rgb(173 162 222 / 78%); --donut-failed:rgb(205 112 136 / 72%); --donut-done-solid:#667ee0; --donut-running-solid:#7654cf; --donut-pending-solid:#ada2de; --donut-failed-solid:#cd7088; }
+.system-readout.xrd { --donut-done:rgb(65 164 184 / 82%); --donut-running:rgb(35 139 163 / 82%); --donut-pending:rgb(132 198 207 / 78%); --donut-failed:rgb(205 112 136 / 72%); --donut-done-solid:#41a4b8; --donut-running-solid:#238ba3; --donut-pending-solid:#84c6cf; --donut-failed-solid:#cd7088; }
+.sample-donut { background:radial-gradient(circle at 28% 17%,rgb(255 255 255 / 72%),transparent 31%),conic-gradient(from -24deg,var(--donut-done) 0 var(--done),var(--donut-running) var(--done) var(--running),var(--donut-pending) var(--running) var(--pending),var(--donut-failed) var(--pending) 100%); filter:saturate(.9); }
+.summary-legend .done i { background:var(--donut-done-solid); }.summary-legend .running i { background:var(--donut-running-solid); }.summary-legend .pending i { background:var(--donut-pending-solid); }.summary-legend .failed i { background:var(--donut-failed-solid); }
