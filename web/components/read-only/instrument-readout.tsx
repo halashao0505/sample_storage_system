@@ -4,7 +4,7 @@ import type { CommunicationStatus, InstrumentStatus, RangeStatistics, SampleReco
 export function InstrumentReadout({ instrument, sample, statistics, communication }: { instrument: InstrumentStatus; sample?: SampleRecord; statistics: RangeStatistics; communication: CommunicationStatus }) {
   const currentLabel = instrument.technique === 'xafs' ? '当前能量' : '当前 2Theta';
   const connected = communication.state === 'connected' && instrument.connection === 'online';
-  const statusLabel = communication.state === 'waiting' ? '等待连接' : connected ? '测试中' : communication.state === 'disconnected' ? '通讯中断' : '设备离线';
+  const statusLabel = communication.state === 'waiting' ? '等待连接' : connected ? '测试中' : communication.state === 'disconnected' ? '数据暂停' : '设备离线';
   const total = Math.max(1, statistics.submitted);
   const completedEnd = statistics.completed / total * 100;
   const runningEnd = completedEnd + statistics.running / total * 100;

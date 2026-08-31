@@ -36,7 +36,7 @@ export function KeyboardTrend({ technique, values, statistics, communication }: 
 
   const updateText = communication.state === 'connected'
     ? '数据同步 · 每 3 秒'
-    : communication.state === 'waiting' ? '等待首次数据' : '通讯中断 · 显示最后数据';
+    : communication.state === 'waiting' ? '等待首次数据' : '最后数据 · 等待恢复';
   const current = statistics[range];
   const completionRate = current.submitted ? Math.round(current.completed / current.submitted * 100) : 0;
   const rangeContext: Record<TrendRange, string> = { today: '按小时 · 实时更新', week: '近 7 天 · 按日汇总', month: '近 30 天 · 按日汇总' };

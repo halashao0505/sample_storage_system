@@ -143,3 +143,29 @@ body { background:radial-gradient(ellipse at 78% -8%,rgb(215 227 255 / 72%),tran
 
 @media (max-width:960px) { .trend-stat-strip { height:auto; grid-template-columns:1fr 1fr; }.trend-stat-strip>div:nth-child(2) { border-right:0; }.system-readout { height:auto; }.readonly-line-chart { height:230px; } }
 @media (max-width:520px) { .trend-range-status { height:auto; align-items:flex-start; flex-direction:column; }.trend-stat-strip { margin:0 12px; }.summary-visual { gap:14px; } }
+
+/* 加强亚克力质感：大面积色雾从面板后方透出，数据层仍保持高对比度。 */
+body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 255 / 64%),transparent 69%),radial-gradient(ellipse 58rem 42rem at -9% 104%,rgb(157 208 255 / 50%),transparent 72%),radial-gradient(ellipse 46rem 36rem at 35% 112%,rgb(201 180 255 / 42%),transparent 70%),radial-gradient(ellipse 44rem 32rem at 96% 82%,rgb(182 234 240 / 30%),transparent 73%),#edf3fc; }
+.readonly-panel { border-color:rgb(255 255 255 / 86%); background:linear-gradient(135deg,rgb(255 255 255 / 82%) 0%,rgb(255 255 255 / 58%) 46%,rgb(238 244 255 / 46%) 100%),radial-gradient(circle at center,rgb(59 82 122 / 4%) 0 .45px,transparent .55px) 0 0 / 4px 4px; box-shadow:0 22px 56px rgb(38 59 94 / 13%),inset 1px 1px 0 rgb(255 255 255 / 95%),inset -1px -1px 0 rgb(160 179 211 / 20%); backdrop-filter:blur(24px) saturate(124%); }
+.readonly-panel-header { background:linear-gradient(100deg,rgb(255 255 255 / 50%),rgb(246 249 255 / 26%)); box-shadow:inset 0 1px 0 rgb(255 255 255 / 82%); }
+.readonly-trend-panel.xafs::after { background:radial-gradient(circle,rgb(132 96 224 / 20%),transparent 70%); filter:blur(12px); }.readonly-trend-panel.xrd::after { background:radial-gradient(circle,rgb(44 163 188 / 20%),transparent 70%); filter:blur(12px); }
+.readonly-device-panel.xafs::before { background:radial-gradient(circle,rgb(132 96 224 / 22%),transparent 70%); filter:blur(11px); }.readonly-device-panel.xrd::before { background:radial-gradient(circle,rgb(44 163 188 / 22%),transparent 70%); filter:blur(11px); }
+
+.trend-range-tabs { border-color:rgb(255 255 255 / 72%); background:rgb(220 230 246 / 48%); box-shadow:inset 0 1px 4px rgb(71 92 127 / 8%); backdrop-filter:blur(12px); }
+.trend-range-status .trend-range-tabs span.active { background:linear-gradient(145deg,rgb(255 255 255 / 96%),rgb(239 245 255 / 76%)); box-shadow:0 5px 14px rgb(39 62 101 / 12%),inset 0 1px 0 #fff; }
+.trend-stat-strip { background:linear-gradient(90deg,rgb(235 242 254 / 54%),rgb(255 255 255 / 20%),rgb(235 242 254 / 48%)); box-shadow:inset 0 1px 0 rgb(255 255 255 / 70%); }
+.trend-stat-strip>div:nth-child(1) { background:radial-gradient(circle at 92% 50%,rgb(90 137 237 / 10%),transparent 48%); }
+.trend-stat-strip>div:nth-child(2) { background:radial-gradient(circle at 92% 50%,rgb(41 179 126 / 12%),transparent 48%); }
+.trend-stat-strip>div:nth-child(3) { background:radial-gradient(circle at 92% 50%,rgb(241 182 74 / 13%),transparent 48%); }
+.readonly-trend-panel.xafs .trend-stat-strip>div:nth-child(4) { background:radial-gradient(circle at 92% 50%,rgb(118 84 207 / 13%),transparent 48%); }.readonly-trend-panel.xrd .trend-stat-strip>div:nth-child(4) { background:radial-gradient(circle at 92% 50%,rgb(35 139 163 / 13%),transparent 48%); }
+.readonly-trend-point { fill:rgb(255 255 255 / 76%); filter:drop-shadow(0 3px 5px rgb(52 71 106 / 18%)); }
+
+.sample-donut { border:1px solid rgb(255 255 255 / 84%); background:radial-gradient(circle at 28% 17%,rgb(255 255 255 / 72%),transparent 31%),conic-gradient(from -24deg,rgb(41 179 126 / 80%) 0 var(--done),var(--donut-accent) var(--done) var(--running),rgb(241 182 74 / 78%) var(--running) var(--pending),rgb(224 92 99 / 74%) var(--pending) 100%); box-shadow:0 16px 30px rgb(40 64 104 / 16%),inset 3px 3px 5px rgb(255 255 255 / 48%),inset -3px -4px 8px rgb(48 68 105 / 13%); filter:saturate(.86); }
+.sample-donut::before { content:''; position:absolute; inset:2px; border-radius:inherit; background:linear-gradient(145deg,rgb(255 255 255 / 48%),transparent 39%,rgb(188 207 239 / 16%) 73%,rgb(255 255 255 / 24%)); pointer-events:none; }
+.xafs .sample-donut { --donut-accent:rgb(118 84 207 / 78%); }.xrd .sample-donut { --donut-accent:rgb(35 139 163 / 78%); }
+.sample-donut::after { inset:13px; border:1px solid rgb(255 255 255 / 82%); background:linear-gradient(145deg,rgb(255 255 255 / 82%),rgb(235 243 255 / 62%)); box-shadow:inset 2px 2px 5px rgb(255 255 255 / 80%),inset -2px -2px 6px rgb(96 121 160 / 10%),0 2px 8px rgb(45 66 100 / 8%); backdrop-filter:blur(8px); }
+.system-daily-summary { position:relative; }
+.system-daily-summary::after { content:''; position:absolute; z-index:-1; right:5%; bottom:-35px; width:170px; height:145px; border-radius:50%; background:radial-gradient(circle,rgb(255 255 255 / 58%),transparent 69%); filter:blur(8px); pointer-events:none; }
+
+.readonly-update.disconnected { display:flex; align-items:center; gap:6px; color:#8995a6; font-weight:600; }.readonly-update.disconnected::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--danger); box-shadow:0 0 0 4px rgb(217 74 74 / 8%); }
+.live-status.offline { color:#8692a3; }.live-status.offline i { background:var(--danger); }
