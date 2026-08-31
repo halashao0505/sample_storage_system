@@ -8,5 +8,6 @@ export function InstrumentReadout({ instrument, sample }: { instrument: Instrume
     <div className="progress-label"><span>测试进度</span><strong>{instrument.scanProgress}%</strong></div>
     <div className="progress-track active"><i style={{ width: `${instrument.scanProgress}%` }} /></div>
     <div className="readonly-instrument-details"><div><span>{currentLabel}</span><strong>{instrument.currentValue}</strong></div><div><span>扫描点</span><strong>{instrument.scannedPoints} / {instrument.totalPoints}</strong></div><div><span>预计剩余</span><strong>{instrument.remaining}</strong></div></div>
+    <div className="runtime-pulse" aria-label="采集脉冲状态"><span className="runtime-pulse-track" aria-hidden="true"><i /></span><div><strong>扫描点采集脉冲</strong><span>数据流稳定接收中</span></div><em>LIVE</em></div>
   </section>;
 }
