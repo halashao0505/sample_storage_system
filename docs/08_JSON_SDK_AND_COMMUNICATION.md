@@ -10,6 +10,8 @@ XRD 控制程序 ──┘                                      │
                                                       └─ XRD 页面 3102（3 秒 GET）
 ```
 
+SDK 1.1 默认使用 HTTP/1.1 Keep-Alive：同一个 Client 每 3 秒上报时复用 TCP 连接，连接意外关闭后自动重连一次。初学者接入与局域网配置见 `09_BEGINNER_CONNECTION_GUIDE.md`。
+
 模块职责：
 
 - `backend/app/contract.py`：JSON v1 字段校验；

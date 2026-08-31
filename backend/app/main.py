@@ -19,6 +19,8 @@ from urllib.parse import urlparse
 from .contract import ContractError, TECHNIQUES, validate_heartbeat, validate_snapshot
 from .store import SnapshotStore
 
+# --------------------------- 服务配置 ---------------------------
+# 这些值都可以在启动前用环境变量覆盖，因此代码不需要为每台电脑改 IP/端口。
 ROOT = Path(__file__).resolve().parents[2]
 HOST = os.getenv("SAMPLE_PLATFORM_API_HOST", "127.0.0.1")
 PORT = int(os.getenv("SAMPLE_PLATFORM_API_PORT", "3200"))
@@ -28,14 +30,19 @@ STORE = SnapshotStore(ROOT / "storage" / "runtime", TIMEOUT_SECONDS)
 
 
 class ApiHandler(BaseHTTPRequestHandler):
-    server_version = "SamplePlatformAPI/1.0"
+    # HTTP/1.1 默认保持 TCP 连接。SDK 每 3 秒发送一次时会复用同一条连接，
+    # 省去反复 TCP 握手；连接被路由器或服务器关闭后 SDK 会自动重建。
+    protocol_version = "HTTP/1.1"
+    server_version = "SamplePlatformAPI/1.1"
 
     def do_OPTIONS(self) -> None:  # noqa: N802
+        """浏览器跨端口访问前可能先发送 OPTIONS 预检。"""
         self.send_response(HTTPStatus.NO_CONTENT)
         self._cors_headers()
         self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
+        """处理网页/SDK读取：健康检查或某一种谱仪的最后快照。"""
         path = urlparse(self.path).path.rstrip("/") or "/"
         if path == "/api/v1/health":
             self._send(HTTPStatus.OK, {"status": "ok", "service": "sample-platform-api"})
@@ -47,6 +54,8 @@ class ApiHandler(BaseHTTPRequestHandler):
         self._error(HTTPStatus.NOT_FOUND, "NOT_FOUND", "接口不存在")
 
     def do_POST(self) -> None:  # noqa: N802
+        """处理控制程序上报：完整看板帧或仅保持在线的心跳。"""
+        # 写接口可配置令牌；读取接口保持只读，方便同机网页直接访问。
         if not self._authorized():
             self._error(HTTPStatus.UNAUTHORIZED, "UNAUTHORIZED", "写接口令牌不正确")
             return
@@ -55,9 +64,11 @@ class ApiHandler(BaseHTTPRequestHandler):
         heartbeat_technique = self._route_technique(path, "/api/v1/heartbeat/")
         try:
             if technique:
+                # 完整帧先校验，再保存；错误 JSON 不会覆盖上一帧可信数据。
                 self._send(HTTPStatus.ACCEPTED, STORE.put(technique, validate_snapshot(self._read_json(), technique)))
                 return
             if heartbeat_technique:
+                # 心跳只刷新接收时间，不修改样品、进度、曲线等业务字段。
                 heartbeat = validate_heartbeat(self._read_json(), heartbeat_technique)
                 self._send(HTTPStatus.ACCEPTED, STORE.heartbeat(heartbeat_technique, str(heartbeat["source_instance_id"])))
                 return
@@ -78,6 +89,7 @@ class ApiHandler(BaseHTTPRequestHandler):
         return technique if technique in TECHNIQUES else None
 
     def _read_json(self) -> Any:
+        """读取 UTF-8 JSON，并限制单帧大小，防止异常客户端占满内存。"""
         content_length = int(self.headers.get("Content-Length", "0"))
         if content_length <= 0:
             raise ContractError("请求正文不能为空")
@@ -86,15 +98,18 @@ class ApiHandler(BaseHTTPRequestHandler):
         return json.loads(self.rfile.read(content_length).decode("utf-8-sig"))
 
     def _authorized(self) -> bool:
+        """未配置令牌时只适合同机；局域网模式建议必须配置令牌。"""
         return not API_TOKEN or self.headers.get("Authorization") == f"Bearer {API_TOKEN}"
 
     def _send(self, status: HTTPStatus, payload: dict[str, Any]) -> None:
+        """所有响应统一包上版本、请求 ID 和服务器时间。"""
         envelope = {"schema_version": 1, "request_id": str(uuid.uuid4()), "server_time": datetime.now(timezone.utc).isoformat(), **payload}
         body = json.dumps(envelope, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
+        self.send_header("Connection", "keep-alive")
         self._cors_headers()
         self.end_headers()
         self.wfile.write(body)
@@ -112,6 +127,7 @@ class ApiHandler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
+    # ThreadingHTTPServer 允许 XAFS、XRD 和两个网页同时连接，互不阻塞。
     server = ThreadingHTTPServer((HOST, PORT), ApiHandler)
     print(f"样品平台 JSON 接口已启动：http://{HOST}:{PORT}/api/v1/health")
     print(f"断连判定：连续 {TIMEOUT_SECONDS} 秒未收到快照或心跳")

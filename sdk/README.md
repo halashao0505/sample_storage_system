@@ -1,6 +1,8 @@
-# 样品测试平台 Python SDK 1.0
+# 样品测试平台 Python SDK 1.1
 
 该 SDK 负责把 XAFS/XRD 控制程序中的**只读状态**转换为 UTF-8 JSON，发送到本机样品平台。它不包含启动、停止、运动、高压、快门、上样或下样接口。
+
+如果第一次接触网络接口，请先阅读 [`docs/09_BEGINNER_CONNECTION_GUIDE.md`](../docs/09_BEGINNER_CONNECTION_GUIDE.md)，其中逐步解释了别人怎样连接你的电脑、如何发送 JSON、局域网 IP/令牌怎么填写，以及长连接的工作方式。
 
 ## 1. 安装
 
@@ -20,15 +22,19 @@ from sample_platform_sdk import SamplePlatformClient, SamplePlatformError
 client = SamplePlatformClient(
     "http://127.0.0.1:3200",  # JSON 接口地址
     timeout_seconds=2.0,       # 单次 HTTP 请求超时
+    keep_alive=True,           # 复用 HTTP/1.1 TCP 连接
 )
 
 try:
+    # client 应在程序启动时创建一次；定时器每 3 秒重复使用同一个对象。
     client.publish_snapshot("xafs", snapshot_dict)
 except SamplePlatformError as exc:
     logger.warning("样品看板上报失败: %s", exc)
 ```
 
 上报失败只能影响看板，不能中止设备采集线程。建议在独立定时器或低优先级工作线程中每 3 秒调用一次。
+
+SDK 默认使用 HTTP/1.1 Keep-Alive 保持连接。连接意外中断时自动重连一次；控制程序退出时调用 `client.close()`。
 
 ## 3. SDK 方法
 
@@ -146,6 +152,7 @@ except SamplePlatformError as exc:
 - 完整 XAFS JSON：`sdk/examples/xafs_snapshot.json`
 - 完整 XRD JSON：`sdk/examples/xrd_snapshot.json`
 - Python 发送示例：`send_xafs_snapshot.py`、`send_xrd_snapshot.py`
+- 逐段中文注释和 3 秒长连接循环：`annotated_xafs_sender.py`
 
 安装 SDK 并启动平台后可执行：
 
