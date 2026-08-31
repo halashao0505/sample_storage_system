@@ -18,6 +18,16 @@ if not exist "node_modules" (
     )
 )
 
-start "Sample Platform Server" cmd /k "cd /d ""%~dp0web"" && npm run dev"
-ping 127.0.0.1 -n 5 >nul
-start "" "http://localhost:3000/"
+echo Building read-only dashboards...
+call npm run build
+if errorlevel 1 (
+    echo Build failed. Check the messages above and try again.
+    pause
+    exit /b 1
+)
+
+start "XAFS Sample Platform" cmd /k "cd /d ""%~dp0web"" && npm run start:xafs"
+start "XRD Sample Platform" cmd /k "cd /d ""%~dp0web"" && npm run start:xrd"
+ping 127.0.0.1 -n 4 >nul
+start "" "http://localhost:3101/"
+start "" "http://localhost:3102/"

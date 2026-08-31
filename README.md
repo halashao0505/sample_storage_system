@@ -1,6 +1,6 @@
 # Sample Storage System
 
-浙江工业大学 XAFS 样品测试运营平台。当前处于“先规划、后编码”阶段，暂不生成业务代码骨架。
+浙江工业大学样品测试平台。当前网页为 XAFS 与 XRD 两套独立端口的只读阅览界面。
 
 ## 规划文档
 
@@ -26,16 +26,21 @@
 
 ## 本地查看网页
 
-Windows 下双击根目录的 `启动样品平台.bat`。脚本会在首次运行时安装依赖、启动开发服务器，并打开：
+Windows 下直接双击根目录的 `启动样品平台.bat`。脚本会在首次运行时安装依赖、自动构建，并同时启动两套只读界面：
 
-<http://localhost:3000/>
+- XAFS：<http://localhost:3101/>
+- XRD：<http://localhost:3102/>
 
-也可以在终端中手动运行：
+不需要手动执行 `npm run build`。两个端口启动后，双击 `测试样品平台.bat` 可以检查 XAFS / XRD 是否均可访问。
+
+如需手动运行：
 
 ```powershell
 cd web
 npm install
-npm run dev
+npm run build
+npm run start:xafs
+npm run start:xrd
 ```
 
 当前 `web` 目录是第一阶段网页原型；后端、业务数据库、外部 DB/JSON 读取器将在架构确认后按路线图逐步实现。
