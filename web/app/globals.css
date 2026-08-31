@@ -167,5 +167,5 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 .system-daily-summary { position:relative; }
 .system-daily-summary::after { content:''; position:absolute; z-index:-1; right:5%; bottom:-35px; width:170px; height:145px; border-radius:50%; background:radial-gradient(circle,rgb(255 255 255 / 58%),transparent 69%); filter:blur(8px); pointer-events:none; }
 
-.readonly-update.disconnected { display:flex; align-items:center; gap:6px; color:#8995a6; font-weight:600; }.readonly-update.disconnected::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--danger); box-shadow:0 0 0 4px rgb(217 74 74 / 8%); }
+.readonly-update.disconnected { display:flex; align-items:center; gap:6px; color:#8995a6; font-weight:600; }.readonly-update.disconnected::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--danger); }
 .live-status.offline { color:#8692a3; }.live-status.offline i { background:var(--danger); }
