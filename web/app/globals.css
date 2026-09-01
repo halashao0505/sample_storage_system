@@ -266,3 +266,23 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
   .readonly-queue-list li { min-height:60px; }
   .state-tag { padding:4px 7px; font-size:9px; }
 }
+
+/* 多条样品记录时，右侧状态区优先保证环形统计完整可见。 */
+.density-dense .system-readout { min-height:0; padding:14px 18px 11px; display:flex; flex-direction:column; justify-content:space-between; gap:8px; overflow:hidden; }
+.density-dense .system-device-live { min-height:0; padding-bottom:8px; }
+.density-dense .readonly-device-panel .readonly-sample { margin-top:8px; }
+.density-dense .readonly-device-panel .progress-label { margin-top:8px; }
+.density-dense .readonly-device-panel .readonly-instrument-details { margin-top:9px; }
+.density-dense .readonly-device-panel .runtime-pulse { margin-top:8px; padding-top:8px; }
+.density-dense .system-daily-summary { padding-top:0; }
+.density-dense .summary-visual { margin-top:5px; gap:16px; }
+.density-dense .sample-donut { width:88px; height:88px; }
+.density-dense .sample-donut strong { font-size:20px; }
+.density-dense .summary-legend { width:138px; gap:8px 11px; }
+@media (min-width:1400px) {
+  .density-dense .system-readout { padding:16px 21px 12px; gap:9px; }
+  .density-dense .readonly-device-panel .readonly-instrument-head strong,.density-dense .readonly-device-panel .readonly-sample strong { font-size:clamp(14px,.82vw,17px); }
+  .density-dense .readonly-device-panel .readonly-sample span { font-size:clamp(10px,.56vw,12px); }
+  .density-dense .sample-donut { width:clamp(86px,4.8vw,104px); height:clamp(86px,4.8vw,104px); }
+  .density-dense .summary-legend { width:clamp(140px,8vw,172px); gap:9px 13px; }
+}
