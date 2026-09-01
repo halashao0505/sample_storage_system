@@ -72,7 +72,7 @@ export function DashboardBoard({ technique, initialSnapshot }: { technique: Samp
   const platformSubtitle = `${label} Testing Platform`;
 
   return <main className={`readonly-board communication-${communication.state}`} data-instrument={technique}>
-    <header className="readonly-brand"><span className="readonly-brand-symbol"><Image src="/gk-logo" alt="GK" width={30} height={30} priority unoptimized /></span><div><strong>{platformTitle}</strong><span>{platformSubtitle}</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>
+    <header className="readonly-brand"><span className="readonly-brand-symbol"><Image src="/gk_logo.png" alt="GK" width={30} height={30} priority unoptimized /></span><div><strong>{platformTitle}</strong><span>{platformSubtitle}</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>
     <section className="readonly-grid" aria-label={`${label} 样品测试阅览`}>
       <article className={`readonly-panel readonly-trend-panel ${technique}`}><KeyboardTrend technique={technique} values={snapshot.trends} statistics={statistics} communication={communication} /></article>
       <article className={`readonly-panel readonly-device-panel ${technique}`}><header className="readonly-panel-header"><h2>系统状态</h2><span className="readonly-header-note">今日概况</span></header><InstrumentReadout instrument={instrument} sample={activeSample} statistics={statistics.today} communication={communication} /></article>

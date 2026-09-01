@@ -260,5 +260,10 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
   .readonly-trend-panel,.readonly-device-panel { height:610px; }
   .readonly-records-panel,.readonly-queue-panel { height:310px; }
   .readonly-line-chart { height:285px; }
-  .system-readout { height:calc(100% - 66px); padding:20px 24px 18px; }
+  .system-readout { height:calc(100% - 66px); padding:16px 24px 14px; grid-template-rows:minmax(0,1fr) auto; align-content:stretch; gap:9px; overflow:hidden; }
+  .system-device-live { padding-bottom:10px; }
+  .system-daily-summary { padding-top:10px; }
+  .summary-visual { margin-top:5px; gap:16px; }
+  .sample-donut { width:92px; height:92px; }
+  .summary-legend { width:140px; gap:7px 11px; }
 }
