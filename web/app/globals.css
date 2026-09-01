@@ -185,13 +185,9 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 .readonly-board[data-instrument="xrd"] .readonly-records-panel::after { opacity:.82; background:repeating-radial-gradient(circle at 78% 76%,transparent 0 43px,rgb(35 139 163 / 10%) 44px 45px,transparent 46px 72px),radial-gradient(circle at 78% 76%,rgb(86 181 197 / 10%),transparent 58%); }
 
 .readonly-panel-header>h2 { margin:0; font-size:13px; }
-.readonly-grid.density-sparse { grid-template-rows:460px 238px; }.density-sparse .readonly-trend-panel,.density-sparse .readonly-device-panel { height:460px; }.density-sparse .readonly-records-panel,.density-sparse .readonly-queue-panel { height:238px; }.density-sparse .readonly-line-chart { height:241px; }
-.readonly-grid.density-dense { grid-template-rows:400px 298px; }.density-dense .readonly-trend-panel,.density-dense .readonly-device-panel { height:400px; }.density-dense .readonly-records-panel,.density-dense .readonly-queue-panel { height:298px; }.density-dense .readonly-line-chart { height:181px; }
 .readonly-records-panel .table-scroll { height:calc(100% - 52px); overflow:auto; }.readonly-queue-list { max-height:calc(100% - 108px); overflow:auto; }
 
 .trend-stat-strip span,.readonly-device-panel .progress-label,.readonly-device-panel .readonly-instrument-details span,.summary-heading span { font-size:9px; }.trend-stat-strip small,.summary-legend>span { font-size:8px; }.trend-stat-strip strong { font-size:21px; }.readonly-device-panel .readonly-instrument-details strong,.summary-legend strong { font-size:10px; }.readonly-board th { font-size:9px; }.readonly-board td { font-size:10px; }.readonly-board td:first-child strong { font-size:9px; }.readonly-queue-list strong { font-size:10px; }.readonly-queue-list small,.queue-duration { font-size:8px; }
-
-@media (max-width:960px) { .readonly-grid.density-sparse,.readonly-grid.density-dense { grid-template-rows:none; }.density-sparse .readonly-trend-panel,.density-sparse .readonly-device-panel,.density-sparse .readonly-records-panel,.density-sparse .readonly-queue-panel,.density-dense .readonly-trend-panel,.density-dense .readonly-device-panel,.density-dense .readonly-records-panel,.density-dense .readonly-queue-panel { height:auto; }.density-sparse .readonly-line-chart,.density-dense .readonly-line-chart { height:230px; } }
 
 /* 项目标识同时用于浏览器页签和页面品牌区。 */
 .readonly-brand .readonly-brand-symbol { width:34px; height:34px; padding:2px; overflow:hidden; border:1px solid rgb(255 255 255 / 82%); background:linear-gradient(145deg,rgb(255 255 255 / 88%),rgb(235 241 251 / 72%)); box-shadow:0 7px 18px rgb(50 65 91 / 16%),inset 0 1px 0 #fff; }
@@ -209,15 +205,6 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
   .board-connection i { width:8px; height:8px; }
 
   .readonly-grid { grid-template-columns:minmax(0,1.7fr) minmax(470px,.9fr); gap:clamp(18px,1.35vw,30px); }
-  .readonly-grid.density-sparse { grid-template-rows:clamp(460px,44vh,620px) clamp(280px,27vh,360px); }
-  .density-sparse .readonly-trend-panel,.density-sparse .readonly-device-panel { height:clamp(460px,44vh,620px); }
-  .density-sparse .readonly-records-panel,.density-sparse .readonly-queue-panel { height:clamp(280px,27vh,360px); }
-  .density-sparse .readonly-line-chart { height:clamp(245px,23vh,330px); }
-  .readonly-grid.density-dense { grid-template-rows:clamp(440px,41vh,580px) clamp(300px,29vh,390px); }
-  .density-dense .readonly-trend-panel,.density-dense .readonly-device-panel { height:clamp(440px,41vh,580px); }
-  .density-dense .readonly-records-panel,.density-dense .readonly-queue-panel { height:clamp(300px,29vh,390px); }
-  .density-dense .readonly-line-chart { height:clamp(220px,20vh,290px); }
-
   .readonly-panel-header { min-height:66px; padding:14px 22px; }
   .readonly-panel-header h1,.readonly-panel-header h2,.readonly-panel-header>h2 { font-size:clamp(16px,.95vw,20px); }
   .readonly-kicker { height:21px; padding:0 8px; font-size:9px; }
@@ -267,33 +254,11 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
   .state-tag { padding:4px 7px; font-size:9px; }
 }
 
-/* 多条样品记录时，右侧状态区优先保证环形统计完整可见。 */
-.density-dense .system-readout { min-height:0; padding:14px 18px 11px; display:flex; flex-direction:column; justify-content:space-between; gap:8px; overflow:hidden; }
-.density-dense .system-device-live { min-height:0; padding-bottom:8px; }
-.density-dense .readonly-device-panel .readonly-sample { margin-top:8px; }
-.density-dense .readonly-device-panel .progress-label { margin-top:8px; }
-.density-dense .readonly-device-panel .readonly-instrument-details { margin-top:9px; }
-.density-dense .readonly-device-panel .runtime-pulse { margin-top:8px; padding-top:8px; }
-.density-dense .system-daily-summary { padding-top:0; }
-.density-dense .summary-visual { margin-top:5px; gap:16px; }
-.density-dense .sample-donut { width:88px; height:88px; }
-.density-dense .sample-donut strong { font-size:20px; }
-.density-dense .summary-legend { width:138px; gap:8px 11px; }
-@media (min-width:1400px) {
-  .density-dense .system-readout { padding:16px 21px 12px; gap:9px; }
-  .density-dense .readonly-device-panel .readonly-instrument-head strong,.density-dense .readonly-device-panel .readonly-sample strong { font-size:clamp(14px,.82vw,17px); }
-  .density-dense .readonly-device-panel .readonly-sample span { font-size:clamp(10px,.56vw,12px); }
-  .density-dense .sample-donut { width:clamp(86px,4.8vw,104px); height:clamp(86px,4.8vw,104px); }
-  .density-dense .summary-legend { width:clamp(140px,8vw,172px); gap:9px 13px; }
-}
-
 @media (min-width:961px) {
-  .readonly-grid.density-dense { grid-template-rows:500px 298px; }
-  .density-dense .readonly-trend-panel,.density-dense .readonly-device-panel { height:500px; }
-  .density-dense .readonly-line-chart { height:220px; }
-}
-@media (min-width:1400px) {
-  .readonly-grid.density-dense { grid-template-rows:clamp(500px,46vh,650px) clamp(300px,29vh,390px); }
-  .density-dense .readonly-trend-panel,.density-dense .readonly-device-panel { height:clamp(500px,46vh,650px); }
-  .density-dense .readonly-line-chart { height:clamp(235px,21vh,310px); }
+  /* 大屏固定两行：数据条数只影响面板内部滚动，绝不改变面板高度。 */
+  .readonly-grid { grid-template-rows:610px 310px; }
+  .readonly-trend-panel,.readonly-device-panel { height:610px; }
+  .readonly-records-panel,.readonly-queue-panel { height:310px; }
+  .readonly-line-chart { height:285px; }
+  .system-readout { height:calc(100% - 66px); padding:20px 24px 18px; }
 }

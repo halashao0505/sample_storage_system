@@ -70,12 +70,10 @@ export function DashboardBoard({ technique, initialSnapshot }: { technique: Samp
   const label = technique.toUpperCase();
   const platformTitle = `${label}测试平台`;
   const platformSubtitle = `${label} Testing Platform`;
-  const visibleRows = Math.max(snapshot.records.length, snapshot.queue.length);
-  const density = visibleRows <= 2 ? 'sparse' : visibleRows >= 5 ? 'dense' : 'normal';
 
   return <main className={`readonly-board communication-${communication.state}`} data-instrument={technique}>
     <header className="readonly-brand"><span className="readonly-brand-symbol"><Image src="/gk-logo" alt="GK" width={30} height={30} priority unoptimized /></span><div><strong>{platformTitle}</strong><span>{platformSubtitle}</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>
-    <section className={`readonly-grid density-${density}`} aria-label={`${label} 样品测试阅览`}>
+    <section className="readonly-grid" aria-label={`${label} 样品测试阅览`}>
       <article className={`readonly-panel readonly-trend-panel ${technique}`}><KeyboardTrend technique={technique} values={snapshot.trends} statistics={statistics} communication={communication} /></article>
       <article className={`readonly-panel readonly-device-panel ${technique}`}><header className="readonly-panel-header"><h2>系统状态</h2><span className="readonly-header-note">今日概况</span></header><InstrumentReadout instrument={instrument} sample={activeSample} statistics={statistics.today} communication={communication} /></article>
       <article className="readonly-panel readonly-records-panel"><header className="readonly-panel-header"><h2>样品记录</h2><span className="readonly-count">{snapshot.records.length} 条</span></header><div className="table-scroll"><table><thead><tr><th>样品</th><th>申请人</th><th>设备</th><th>开始</th><th>耗时</th><th>状态</th></tr></thead><tbody>{snapshot.records.map((sample) => <tr key={sample.id}><td><strong>{sample.id}</strong><span>{sample.name}</span></td><td>{sample.applicant}</td><td>{sample.instrument}</td><td>{sample.startedAt}</td><td>{sample.duration}</td><td><span className={`state-tag ${sample.state}`}>{sample.state === 'running' ? '测试中' : sample.state === 'queued' ? '待测试' : sample.state === 'completed' ? '已完成' : '需复测'}</span></td></tr>)}</tbody></table></div></article>
