@@ -302,3 +302,19 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 .summary-legend { width:100%; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:clamp(14px,1.5vw,28px); }
 .summary-legend>span { grid-template-columns:8px minmax(0,1fr) auto; }
 @media (max-width:520px) { .summary-visual { grid-template-columns:1fr; }.summary-legend { max-width:300px; } }
+
+/* 五条待测任务等高铺满面板；数据心跳每三秒运行一次，不依赖通讯状态。 */
+.readonly-queue-panel { display:flex; flex-direction:column; }
+.readonly-queue-list { flex:1; display:grid; grid-template-rows:repeat(5,minmax(0,1fr)); }
+.readonly-queue-list li { min-height:0; }
+.readonly-records-panel { display:flex; flex-direction:column; }
+.readonly-records-panel .table-scroll { flex:1; min-height:0; height:auto; }
+.readonly-records-panel table { height:100%; }
+.sample-donut { animation:summary-heartbeat 3s ease-in-out infinite; transform-origin:center; }
+.summary-legend i { animation:legend-heartbeat 3s ease-out infinite; }
+.summary-legend>span:nth-child(2) i { animation-delay:.12s; }
+.summary-legend>span:nth-child(3) i { animation-delay:.24s; }
+.summary-legend>span:nth-child(4) i { animation-delay:.36s; }
+@keyframes summary-heartbeat { 0%,68%,100% { transform:scale(1); filter:saturate(.9) brightness(1); } 76% { transform:scale(1.035); filter:saturate(1.02) brightness(1.08); } 84% { transform:scale(1); filter:saturate(.94) brightness(1.02); } }
+@keyframes legend-heartbeat { 0%,70%,100% { transform:scale(1); opacity:.82; } 78% { transform:scale(1.65); opacity:1; } 86% { transform:scale(1); opacity:.9; } }
+@media (prefers-reduced-motion:reduce) { .sample-donut,.summary-legend i { animation:none; } }
