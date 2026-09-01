@@ -256,14 +256,14 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 
 @media (min-width:961px) {
   /* 大屏固定两行：数据条数只影响面板内部滚动，绝不改变面板高度。 */
-  .readonly-grid { grid-template-rows:610px 310px; }
-  .readonly-trend-panel,.readonly-device-panel { height:610px; }
+  .readonly-grid { grid-template-rows:550px 310px; }
+  .readonly-trend-panel,.readonly-device-panel { height:550px; }
   .readonly-records-panel,.readonly-queue-panel { height:310px; }
-  .readonly-line-chart { height:285px; }
-  .system-readout { height:calc(100% - 66px); padding:16px 24px 14px; grid-template-rows:minmax(0,1fr) auto; align-content:stretch; gap:9px; overflow:hidden; }
+  .readonly-line-chart { height:270px; }
+  .system-readout { height:calc(100% - 66px); padding:16px 24px 14px; grid-template-rows:auto auto; align-content:start; gap:12px; overflow:hidden; }
   .system-device-live { padding-bottom:10px; }
   .system-daily-summary { padding-top:10px; }
   .summary-visual { margin-top:5px; gap:16px; }
-  .sample-donut { width:92px; height:92px; }
-  .summary-legend { width:140px; gap:7px 11px; }
+  .sample-donut { width:108px; height:108px; }
+  .summary-legend { width:148px; gap:8px 12px; }
 }

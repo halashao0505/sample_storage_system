@@ -5,9 +5,9 @@ export const metadata: Metadata = {
   title: 'ZJUT Sample Platform',
   description: 'XAFS 与 XRD 多谱仪样品测试运营平台视觉原型',
   icons: {
-    icon: [{ url: '/gk_logo.png', type: 'image/png' }],
-    shortcut: '/gk_logo.png',
-    apple: '/gk_logo.png',
+    icon: [{ url: '/gk-logo', type: 'image/png' }],
+    shortcut: '/gk-logo',
+    apple: '/gk-logo',
   },
 };
 
