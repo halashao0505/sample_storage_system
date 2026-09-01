@@ -286,3 +286,14 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
   .density-dense .sample-donut { width:clamp(86px,4.8vw,104px); height:clamp(86px,4.8vw,104px); }
   .density-dense .summary-legend { width:clamp(140px,8vw,172px); gap:9px 13px; }
 }
+
+@media (min-width:961px) {
+  .readonly-grid.density-dense { grid-template-rows:500px 298px; }
+  .density-dense .readonly-trend-panel,.density-dense .readonly-device-panel { height:500px; }
+  .density-dense .readonly-line-chart { height:220px; }
+}
+@media (min-width:1400px) {
+  .readonly-grid.density-dense { grid-template-rows:clamp(500px,46vh,650px) clamp(300px,29vh,390px); }
+  .density-dense .readonly-trend-panel,.density-dense .readonly-device-panel { height:clamp(500px,46vh,650px); }
+  .density-dense .readonly-line-chart { height:clamp(235px,21vh,310px); }
+}
