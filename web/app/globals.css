@@ -312,12 +312,13 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 .readonly-records-panel table { height:100%; }
 @media (min-width:961px) { .readonly-records-panel td { padding-top:7px; padding-bottom:7px; line-height:1.15; } }
 
-/* 仪表盘刷新彗星：静候数秒后由慢到快扫过一圈，尾迹由深到浅。 */
-.sample-donut .donut-orbit { position:absolute; z-index:3; inset:-7px; margin:0; border-radius:50%; background:conic-gradient(from 0deg,transparent 0 48%,rgb(67 155 225 / 0) 54%,rgb(67 155 225 / 18%) 64%,rgb(85 113 218 / 42%) 76%,rgb(118 84 207 / 78%) 90%,rgb(255 255 255 / 96%) 100%); -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px)); mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px)); animation:donut-orbit 5s both infinite; pointer-events:none; }
-.sample-donut .donut-head { position:absolute; z-index:4; inset:-7px; margin:0; border-radius:50%; animation:donut-orbit 5s both infinite; pointer-events:none; }
-.sample-donut .donut-head::after { content:''; position:absolute; top:0; left:50%; width:10px; height:10px; border-radius:50%; background:#fff; box-shadow:0 0 5px #fff,0 0 13px rgb(118 84 207 / 88%); transform:translate(-50%,-10%); animation:comet-head 5s ease-out infinite; }
+/* 仪表盘循环彗星：每圈连续由慢到快，颜色和体积由重到淡。 */
+.sample-donut .donut-orbit { position:absolute; z-index:3; inset:-7px; margin:0; border-radius:50%; background:conic-gradient(from 0deg,transparent 0 48%,rgb(67 155 225 / 0) 54%,rgb(67 155 225 / 18%) 64%,rgb(85 113 218 / 42%) 76%,rgb(118 84 207 / 78%) 90%,rgb(255 255 255 / 96%) 100%); -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px)); mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px)); animation:donut-orbit 4.2s cubic-bezier(.55,.06,.68,.19) infinite,comet-tail 4.2s linear infinite; pointer-events:none; }
+.sample-donut .donut-head { position:absolute; z-index:4; inset:-7px; margin:0; border-radius:50%; animation:donut-orbit 4.2s cubic-bezier(.55,.06,.68,.19) infinite; pointer-events:none; }
+.sample-donut .donut-head::after { content:''; position:absolute; top:0; left:50%; width:10px; height:10px; border-radius:50%; background:var(--donut-running-solid); box-shadow:0 0 5px #fff,0 0 13px rgb(118 84 207 / 88%); transform:translate(-50%,-10%); animation:comet-head 4.2s linear infinite; }
 .xrd .sample-donut .donut-orbit { background:conic-gradient(from 0deg,transparent 0 48%,rgb(74 190 160 / 0) 54%,rgb(74 190 160 / 18%) 64%,rgb(40 174 190 / 44%) 76%,rgb(35 139 163 / 80%) 90%,rgb(255 255 255 / 96%) 100%); }
 .xrd .sample-donut .donut-head::after { box-shadow:0 0 5px #fff,0 0 13px rgb(35 139 163 / 90%); }
-@keyframes donut-orbit { 0%,38% { transform:rotate(0deg); } 50% { transform:rotate(18deg); } 64% { transform:rotate(78deg); } 76% { transform:rotate(188deg); } 86% { transform:rotate(320deg); } 92%,100% { transform:rotate(360deg); } }
-@keyframes comet-head { 0%,38%,100% { transform:translate(-50%,-10%) scale(.78); opacity:.45; } 62% { transform:translate(-50%,-10%) scale(.9); opacity:.82; } 84% { transform:translate(-50%,-10%) scale(1.18); opacity:1; } 92% { transform:translate(-50%,-10%) scale(1); opacity:.92; } }
+@keyframes donut-orbit { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+@keyframes comet-tail { from { opacity:1; filter:saturate(1.18) brightness(.92); } to { opacity:.28; filter:saturate(.56) brightness(1.24); } }
+@keyframes comet-head { from { transform:translate(-50%,-10%) scale(1.35); opacity:1; background:var(--donut-running-solid); } to { transform:translate(-50%,-10%) scale(.52); opacity:.3; background:#f7fbff; } }
 @media (prefers-reduced-motion:reduce) { .sample-donut .donut-orbit,.sample-donut .donut-head { animation:none; } }
