@@ -296,3 +296,9 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
   .summary-legend strong { font-size:clamp(14px,.82vw,17px); }
   .summary-legend i { width:8px; height:8px; }
 }
+
+/* 系统状态汇总横向铺满，避免仪表盘两侧留下无效空白。 */
+.summary-visual { width:100%; display:grid; grid-template-columns:minmax(120px,.8fr) minmax(190px,1.2fr); justify-items:center; gap:clamp(16px,2vw,34px); }
+.summary-legend { width:100%; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:clamp(14px,1.5vw,28px); }
+.summary-legend>span { grid-template-columns:8px minmax(0,1fr) auto; }
+@media (max-width:520px) { .summary-visual { grid-template-columns:1fr; }.summary-legend { max-width:300px; } }
