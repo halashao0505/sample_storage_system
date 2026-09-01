@@ -196,3 +196,73 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 /* 项目标识同时用于浏览器页签和页面品牌区。 */
 .readonly-brand .readonly-brand-symbol { width:34px; height:34px; padding:2px; overflow:hidden; border:1px solid rgb(255 255 255 / 82%); background:linear-gradient(145deg,rgb(255 255 255 / 88%),rgb(235 241 251 / 72%)); box-shadow:0 7px 18px rgb(50 65 91 / 16%),inset 0 1px 0 #fff; }
 .readonly-brand-symbol img { width:100%; height:100%; display:block; object-fit:contain; }
+
+/* 大屏展示：利用额外的横向空间，并提高远距离阅读所需的字号与图表尺寸。 */
+.readonly-brand,.readonly-grid { width:min(2200px,100%); }
+@media (min-width:1400px) {
+  .readonly-board { padding:clamp(20px,1.8vw,46px) clamp(28px,4vw,96px) clamp(28px,2.4vw,58px); }
+  .readonly-brand { height:52px; margin-bottom:clamp(12px,1vw,22px); gap:13px; }
+  .readonly-brand .readonly-brand-symbol { width:46px; height:46px; padding:3px; border-radius:13px; }
+  .readonly-brand strong { font-size:clamp(18px,1.15vw,24px); }
+  .readonly-brand div span { margin-top:7px; font-size:clamp(10px,.62vw,13px); }
+  .board-connection { padding:8px 13px; gap:8px; font-size:clamp(10px,.62vw,13px); }
+  .board-connection i { width:8px; height:8px; }
+
+  .readonly-grid { grid-template-columns:minmax(0,1.7fr) minmax(470px,.9fr); gap:clamp(18px,1.35vw,30px); }
+  .readonly-grid.density-sparse { grid-template-rows:clamp(460px,44vh,620px) clamp(280px,27vh,360px); }
+  .density-sparse .readonly-trend-panel,.density-sparse .readonly-device-panel { height:clamp(460px,44vh,620px); }
+  .density-sparse .readonly-records-panel,.density-sparse .readonly-queue-panel { height:clamp(280px,27vh,360px); }
+  .density-sparse .readonly-line-chart { height:clamp(245px,23vh,330px); }
+  .readonly-grid.density-dense { grid-template-rows:clamp(440px,41vh,580px) clamp(300px,29vh,390px); }
+  .density-dense .readonly-trend-panel,.density-dense .readonly-device-panel { height:clamp(440px,41vh,580px); }
+  .density-dense .readonly-records-panel,.density-dense .readonly-queue-panel { height:clamp(300px,29vh,390px); }
+  .density-dense .readonly-line-chart { height:clamp(220px,20vh,290px); }
+
+  .readonly-panel-header { min-height:66px; padding:14px 22px; }
+  .readonly-panel-header h1,.readonly-panel-header h2,.readonly-panel-header>h2 { font-size:clamp(16px,.95vw,20px); }
+  .readonly-kicker { height:21px; padding:0 8px; font-size:9px; }
+  .readonly-update,.readonly-count,.readonly-header-note { font-size:clamp(10px,.62vw,13px); }
+  .trend-range-status { height:43px; padding:7px 22px; }
+  .trend-range-status .trend-range-tabs span { min-width:48px; padding:5px 9px; font-size:clamp(10px,.62vw,13px); }
+  .trend-range-status>i { font-size:clamp(9px,.58vw,12px); }
+  .trend-stat-strip { height:76px; margin:0 22px; padding:10px 5px; }
+  .trend-stat-strip>div { padding:0 16px; column-gap:11px; }
+  .trend-stat-strip span { font-size:clamp(10px,.62vw,13px); }
+  .trend-stat-strip strong { font-size:clamp(25px,1.55vw,34px); }
+  .trend-stat-strip small { font-size:clamp(9px,.55vw,11px); }
+  .readonly-chart-wrap { padding:9px 22px 4px; }
+  .readonly-chart-meta { height:37px; }
+  .readonly-chart-meta span { font-size:clamp(12px,.72vw,15px); }
+  .readonly-chart-meta strong { font-size:clamp(30px,1.75vw,38px); }
+  .readonly-chart-legend { margin-left:56px; gap:22px; font-size:clamp(10px,.62vw,13px); }
+  .readonly-chart-legend i { width:18px; height:6px; }
+  .readonly-point-value { font-size:clamp(10px,.65vw,13px); stroke-width:5px; }
+  .chart-axis-label { font-size:clamp(9px,.55vw,12px); }
+  .keyboard-hint { padding:0 22px 8px; font-size:clamp(9px,.55vw,11px); }
+
+  .system-readout { padding:20px 24px 17px; }
+  .readonly-device-panel .readonly-instrument-head strong { font-size:clamp(16px,.95vw,20px); }
+  .instrument-type { padding:4px 7px; font-size:9px; }
+  .readonly-device-panel .readonly-sample strong { font-size:clamp(16px,.95vw,20px); }
+  .readonly-device-panel .readonly-sample span { font-size:clamp(11px,.66vw,14px); }
+  .readonly-device-panel .progress-label { font-size:clamp(10px,.62vw,13px); }
+  .readonly-device-panel .progress-track { height:8px; }
+  .readonly-device-panel .readonly-instrument-details span,.summary-heading span { font-size:clamp(10px,.58vw,12px); }
+  .readonly-device-panel .readonly-instrument-details strong { font-size:clamp(12px,.7vw,15px); }
+  .runtime-pulse strong { font-size:clamp(10px,.58vw,12px); }
+  .runtime-pulse span,.runtime-pulse em { font-size:clamp(9px,.52vw,11px); }
+  .sample-donut { width:clamp(96px,6vw,122px); height:clamp(96px,6vw,122px); }
+  .sample-donut strong { font-size:clamp(23px,1.45vw,31px); }
+  .sample-donut span { font-size:clamp(8px,.5vw,10px); }
+  .summary-heading strong { font-size:clamp(12px,.7vw,15px); }
+  .summary-heading em { font-size:clamp(20px,1.25vw,27px); }
+  .summary-legend { width:clamp(152px,10vw,210px); gap:12px 16px; }
+  .summary-legend>span { font-size:clamp(9px,.52vw,11px); }
+  .summary-legend strong { font-size:clamp(11px,.62vw,13px); }
+  .readonly-board th { font-size:clamp(10px,.58vw,12px); }
+  .readonly-board td { padding:12px 12px; font-size:clamp(11px,.62vw,13px); }
+  .readonly-board td:first-child strong,.readonly-queue-list strong { font-size:clamp(10px,.58vw,12px); }
+  .readonly-queue-list small,.queue-duration { font-size:clamp(9px,.52vw,11px); }
+  .readonly-queue-list li { min-height:60px; }
+  .state-tag { padding:4px 7px; font-size:9px; }
+}

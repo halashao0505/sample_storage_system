@@ -68,11 +68,13 @@ export function DashboardBoard({ technique, initialSnapshot }: { technique: Samp
   const activeSample = snapshot.records.find((item) => item.id === snapshot.instrument.activeSampleId);
   const statistics = snapshot.statistics ?? statisticsFromRecords(snapshot);
   const label = technique.toUpperCase();
+  const platformTitle = `${label}测试平台`;
+  const platformSubtitle = `${label} Testing Platform`;
   const visibleRows = Math.max(snapshot.records.length, snapshot.queue.length);
   const density = visibleRows <= 2 ? 'sparse' : visibleRows >= 5 ? 'dense' : 'normal';
 
   return <main className={`readonly-board communication-${communication.state}`} data-instrument={technique}>
-    <header className="readonly-brand"><span className="readonly-brand-symbol"><Image src="/gk-logo" alt="GK" width={30} height={30} priority unoptimized /></span><div><strong>样品测试平台</strong><span>Sample Testing Platform</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>
+    <header className="readonly-brand"><span className="readonly-brand-symbol"><Image src="/gk-logo" alt="GK" width={30} height={30} priority unoptimized /></span><div><strong>{platformTitle}</strong><span>{platformSubtitle}</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>
     <section className={`readonly-grid density-${density}`} aria-label={`${label} 样品测试阅览`}>
       <article className={`readonly-panel readonly-trend-panel ${technique}`}><KeyboardTrend technique={technique} values={snapshot.trends} statistics={statistics} communication={communication} /></article>
       <article className={`readonly-panel readonly-device-panel ${technique}`}><header className="readonly-panel-header"><h2>系统状态</h2><span className="readonly-header-note">今日概况</span></header><InstrumentReadout instrument={instrument} sample={activeSample} statistics={statistics.today} communication={communication} /></article>
