@@ -196,15 +196,15 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 /* 大屏展示：利用额外的横向空间，并提高远距离阅读所需的字号与图表尺寸。 */
 .readonly-brand,.readonly-grid { width:min(2200px,100%); }
 @media (min-width:1400px) {
-  .readonly-board { padding:clamp(20px,1.8vw,46px) clamp(28px,4vw,96px) clamp(28px,2.4vw,58px); }
-  .readonly-brand { height:52px; margin-bottom:clamp(12px,1vw,22px); gap:13px; }
+  .readonly-board { padding:clamp(12px,1vw,24px) clamp(14px,2vw,42px) clamp(18px,1.2vw,28px); }
+  .readonly-brand { height:46px; margin-bottom:6px; gap:13px; }
   .readonly-brand .readonly-brand-symbol { width:46px; height:46px; padding:3px; border-radius:13px; }
   .readonly-brand strong { font-size:clamp(18px,1.15vw,24px); }
   .readonly-brand div span { margin-top:7px; font-size:clamp(10px,.62vw,13px); }
   .board-connection { padding:8px 13px; gap:8px; font-size:clamp(10px,.62vw,13px); }
   .board-connection i { width:8px; height:8px; }
 
-  .readonly-grid { grid-template-columns:minmax(0,1.7fr) minmax(470px,.9fr); gap:clamp(18px,1.35vw,30px); }
+  .readonly-grid { grid-template-columns:minmax(0,1.7fr) minmax(470px,.9fr); gap:clamp(10px,.8vw,18px); }
   .readonly-panel-header { min-height:66px; padding:14px 22px; }
   .readonly-panel-header h1,.readonly-panel-header h2,.readonly-panel-header>h2 { font-size:clamp(16px,.95vw,20px); }
   .readonly-kicker { height:21px; padding:0 8px; font-size:9px; }
@@ -252,6 +252,12 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
   .readonly-queue-list small,.queue-duration { font-size:clamp(9px,.52vw,11px); }
   .readonly-queue-list li { min-height:60px; }
   .state-tag { padding:4px 7px; font-size:9px; }
+  .readonly-records-panel th { font-size:clamp(12px,.72vw,15px); }
+  .readonly-records-panel td { font-size:clamp(13px,.78vw,16px); }
+  .readonly-records-panel td:first-child strong { font-size:clamp(12px,.7vw,15px); }
+  .readonly-records-panel td:first-child span { margin-top:4px; font-size:clamp(10px,.6vw,13px); }
+  .readonly-queue-list strong { font-size:clamp(12px,.7vw,15px); }
+  .readonly-queue-list small,.readonly-queue-list .queue-duration { font-size:clamp(11px,.62vw,13px); }
 }
 
 @media (min-width:961px) {
