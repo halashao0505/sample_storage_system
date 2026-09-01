@@ -70,8 +70,8 @@ export function DashboardBoard({ technique, initialSnapshot }: { technique: Samp
   const platformTitle = `${label}测试平台`;
   const platformSubtitle = `${label} Testing Platform`;
   // 历史由接口按最新优先提供；队列则必须按即将测试的顺序展示。
-  const visibleRecords = snapshot.records.slice(0, 3);
-  const visibleQueue = [...snapshot.queue].sort((left, right) => left.position - right.position).slice(0, 3);
+  const visibleRecords = snapshot.records.slice(0, 5);
+  const visibleQueue = [...snapshot.queue].sort((left, right) => left.position - right.position).slice(0, 5);
 
   return <main className={`readonly-board communication-${communication.state}`} data-instrument={technique}>
     <header className="readonly-brand"><span className="readonly-brand-symbol"><img src="/gk-logo" alt="GK" width={30} height={30} /></span><div><strong>{platformTitle}</strong><span>{platformSubtitle}</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>

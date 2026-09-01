@@ -262,9 +262,9 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 
 @media (min-width:961px) {
   /* 大屏弹性两行：上下看板一起随视口缩放，并保留可读性下限。 */
-  .readonly-grid { grid-template-rows:minmax(490px,1.35fr) minmax(310px,1fr); }
+  .readonly-grid { grid-template-rows:minmax(490px,1.35fr) minmax(410px,1fr); }
   .readonly-trend-panel,.readonly-device-panel { height:100%; min-height:490px; }
-  .readonly-records-panel,.readonly-queue-panel { height:100%; min-height:310px; }
+  .readonly-records-panel,.readonly-queue-panel { height:100%; min-height:410px; }
   .readonly-line-chart { height:clamp(230px,25vh,270px); }
   .system-readout { height:calc(100% - 66px); padding:16px 24px 14px; grid-template-rows:auto auto; align-content:start; gap:12px; overflow:hidden; }
   .system-device-live { padding-bottom:10px; }
@@ -277,9 +277,9 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 /* 视口自适应：高屏填满可用空间，矮屏保留滚动，不压缩内容。 */
 @media (min-width:961px) {
   .readonly-board { min-height:100dvh; }
-  .readonly-grid { width:100%; height:calc(100dvh - 112px); min-height:818px; grid-template-rows:minmax(490px,1.35fr) minmax(310px,1fr); }
+  .readonly-grid { width:100%; height:calc(100dvh - 112px); min-height:918px; grid-template-rows:minmax(490px,1.35fr) minmax(410px,1fr); }
   .readonly-trend-panel,.readonly-device-panel { height:100%; min-height:490px; }
-  .readonly-records-panel,.readonly-queue-panel { height:100%; min-height:310px; }
+  .readonly-records-panel,.readonly-queue-panel { height:100%; min-height:410px; }
 }
 
 @media (min-width:1400px) {
