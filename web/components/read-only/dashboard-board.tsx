@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import { loadDashboardFrame } from '../../lib/samples/api';
 import type { CommunicationStatus, DashboardStatistics, RangeStatistics, SampleTechnique, TechniqueSnapshot } from '../../lib/samples/types';
 import { InstrumentReadout } from './instrument-readout';
@@ -71,7 +72,7 @@ export function DashboardBoard({ technique, initialSnapshot }: { technique: Samp
   const density = visibleRows <= 2 ? 'sparse' : visibleRows >= 5 ? 'dense' : 'normal';
 
   return <main className={`readonly-board communication-${communication.state}`} data-instrument={technique}>
-    <header className="readonly-brand"><span className="readonly-brand-symbol">Z</span><div><strong>样品测试平台</strong><span>Sample Testing Platform</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>
+    <header className="readonly-brand"><span className="readonly-brand-symbol"><Image src="/gk-logo" alt="GK" width={30} height={30} priority unoptimized /></span><div><strong>样品测试平台</strong><span>Sample Testing Platform</span></div><span className={`board-connection ${communication.state}`}><i />{statusText(communication)}</span></header>
     <section className={`readonly-grid density-${density}`} aria-label={`${label} 样品测试阅览`}>
       <article className={`readonly-panel readonly-trend-panel ${technique}`}><KeyboardTrend technique={technique} values={snapshot.trends} statistics={statistics} communication={communication} /></article>
       <article className={`readonly-panel readonly-device-panel ${technique}`}><header className="readonly-panel-header"><h2>系统状态</h2><span className="readonly-header-note">今日概况</span></header><InstrumentReadout instrument={instrument} sample={activeSample} statistics={statistics.today} communication={communication} /></article>
