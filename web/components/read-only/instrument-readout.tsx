@@ -21,7 +21,7 @@ export function InstrumentReadout({ instrument, sample, statistics, communicatio
     </div>
     <div className="system-daily-summary">
       <div className="summary-heading"><div><span>今日样品状态</span><strong>完成进度</strong></div><em>{statistics.submitted ? Math.round(statistics.completed / statistics.submitted * 100) : 0}%</em></div>
-      <div className="summary-visual"><div className="sample-donut" style={donutStyle}><div><strong>{statistics.submitted}</strong><span>今日总样品</span></div></div><div className="summary-legend"><span className="done"><i />已完成 <strong>{statistics.completed}</strong></span><span className="running"><i />测试中 <strong>{statistics.running}</strong></span><span className="pending"><i />待测试 <strong>{statistics.pending}</strong></span><span className="failed"><i />异常 <strong>{statistics.failed}</strong></span></div></div>
+      <div className="summary-visual"><div className="sample-donut" style={donutStyle}><span className="donut-orbit" aria-hidden="true" /><span className="donut-head" aria-hidden="true" /><div><strong>{statistics.submitted}</strong><span>今日总样品</span></div></div><div className="summary-legend"><span className="done"><i />已完成 <strong>{statistics.completed}</strong></span><span className="running"><i />测试中 <strong>{statistics.running}</strong></span><span className="pending"><i />待测试 <strong>{statistics.pending}</strong></span><span className="failed"><i />异常 <strong>{statistics.failed}</strong></span></div></div>
     </div>
   </section>;
 }
