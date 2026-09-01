@@ -10,11 +10,17 @@ type ReadOnlyTrendChartProps = {
 
 export function ReadOnlyTrendChart({ values, technique, metric, range, rangeLabel }: ReadOnlyTrendChartProps) {
   const width = 1000; const height = 260; const left = 58; const right = 38; const top = 24; const bottom = 36;
-  const chartMaximum = Math.max(100, Math.ceil(Math.max(...values, 0) / 25) * 25);
+  const baselineValues = values.map((value) => Math.max(8, Math.round(value * .87)));
+  const dataMinimum = Math.min(...values, ...baselineValues);
+  const dataMaximum = Math.max(...values, ...baselineValues);
+  const padding = Math.max(5, Math.ceil((dataMaximum - dataMinimum) * .15 / 5) * 5);
+  const chartMinimum = Math.max(0, Math.floor((dataMinimum - padding) / 5) * 5);
+  const chartMaximum = Math.ceil((dataMaximum + padding) / 5) * 5;
+  const chartRange = Math.max(1, chartMaximum - chartMinimum);
   const x = (index: number) => left + index * ((width - left - right) / Math.max(1, values.length - 1));
-  const y = (value: number) => top + (chartMaximum - value) * ((height - top - bottom) / chartMaximum);
+  const y = (value: number) => top + (chartMaximum - value) * ((height - top - bottom) / chartRange);
   const points = values.map((value, index) => `${x(index)},${y(value)}`).join(' ');
-  const baseline = values.map((value, index) => `${x(index)},${y(Math.max(8, Math.round(value * .87)))}`).join(' ');
+  const baseline = baselineValues.map((value, index) => `${x(index)},${y(value)}`).join(' ');
   const area = `${left},${height - bottom} ${points} ${width - right},${height - bottom}`;
   const accent = technique === 'xafs' ? '#7654cf' : '#238ba3';
   const metricLabels: Record<TrendMetric, string> = { samples: '样品数', tests: '测试次数', duration: '测试时长' };
@@ -30,7 +36,7 @@ export function ReadOnlyTrendChart({ values, technique, metric, range, rangeLabe
     <div className="readonly-chart-meta"><span>{metricLabels[metric]} · {rangeLabel}</span><strong className="wave-value">{values.at(-1) ?? 0}</strong></div>
     <svg className="readonly-line-chart" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" role="img" aria-label={`${technique.toUpperCase()} ${metricLabels[metric]}趋势图`}>
       <defs><linearGradient id={`area-${technique}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={accent} stopOpacity=".24" /><stop offset="100%" stopColor={accent} stopOpacity="0" /></linearGradient><linearGradient id={`wave-${technique}`} gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="190" y2="0"><stop offset="0%" stopColor={accent} stopOpacity="0" /><stop offset="35%" stopColor={accent} stopOpacity="0" /><stop offset="49%" stopColor="#f7fbff" stopOpacity=".98" /><stop offset="54%" stopColor={technique === 'xafs' ? '#d9cfff' : '#c6f2f7'} stopOpacity=".98" /><stop offset="68%" stopColor={accent} stopOpacity="0" /><stop offset="100%" stopColor={accent} stopOpacity="0" /><animateTransform attributeName="gradientTransform" type="translate" from="-190 0" to="1000 0" dur="3.8s" repeatCount="indefinite" /></linearGradient></defs>
-      {[0, .25, .5, .75, 1].map((ratio) => { const tick = chartMaximum * ratio; return <g key={ratio}><line className="chart-grid-line" x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} /><text className="chart-axis-label" x={left - 9} y={y(tick) + 3} textAnchor="end">{tick}</text></g>; })}
+      {[0, .25, .5, .75, 1].map((ratio) => { const tick = chartMinimum + chartRange * ratio; return <g key={ratio}><line className="chart-grid-line" x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} /><text className="chart-axis-label" x={left - 9} y={y(tick) + 3} textAnchor="end">{Math.round(tick)}</text></g>; })}
       <polygon points={area} fill={`url(#area-${technique})`} />
       <polyline className="baseline-line" points={baseline} />
       <polyline className="readonly-trend-line" vectorEffect="non-scaling-stroke" style={{ stroke: accent }} points={points} />
