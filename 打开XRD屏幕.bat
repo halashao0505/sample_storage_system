@@ -18,5 +18,5 @@ if "%PLATFORM_HOST%"=="" (
     exit /b 1
 )
 
-rem 3102 固定对应 XRD 页面；浏览器从同一台主机读取 3200 状态接口。
-start "" "http://%PLATFORM_HOST%:3102/"
+rem 1001 固定对应 XRD 页面；浏览器从同一台主机读取 3200 状态接口。
+start "" "http://%PLATFORM_HOST%:1001/"

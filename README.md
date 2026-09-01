@@ -31,8 +31,8 @@
 
 Windows 下直接双击根目录的 `启动样品平台.bat`。脚本会启动 JSON 接口服务、自动构建，并同时启动两套只读界面：
 
-- XAFS：<http://localhost:3101/>
-- XRD：<http://localhost:3102/>
+- XAFS：<http://localhost:1002/>
+- XRD：<http://localhost:1001/>
 - JSON 接口健康检查：<http://localhost:3200/api/v1/health>
 
 不需要手动执行 `npm run build`。两个端口启动后，双击 `测试样品平台.bat` 可以检查 XAFS / XRD 是否均可访问。

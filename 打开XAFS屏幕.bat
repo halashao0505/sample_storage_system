@@ -18,5 +18,5 @@ if "%PLATFORM_HOST%"=="" (
     exit /b 1
 )
 
-rem 3101 固定对应 XAFS 页面；浏览器从同一台主机读取 3200 状态接口。
-start "" "http://%PLATFORM_HOST%:3101/"
+rem 1002 固定对应 XAFS 页面；浏览器从同一台主机读取 3200 状态接口。
+start "" "http://%PLATFORM_HOST%:1002/"

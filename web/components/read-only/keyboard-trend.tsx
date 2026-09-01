@@ -24,7 +24,7 @@ export function KeyboardTrend({ technique, values, statistics, communication }: 
       if (event.code === 'Digit1' || event.code === 'Digit2') {
         event.preventDefault();
         event.stopImmediatePropagation();
-        const nextPort = event.code === 'Digit1' ? '3101' : '3102';
+        const nextPort = event.code === 'Digit1' ? '1002' : '1001';
         if (window.location.port !== nextPort) {
           window.location.assign(`${window.location.protocol}//${window.location.hostname}:${nextPort}${window.location.pathname}${window.location.search}${window.location.hash}`);
         }

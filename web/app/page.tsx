@@ -5,7 +5,7 @@ import type { SampleTechnique, TechniqueSnapshot } from '../lib/samples/types';
 
 export default async function Home() {
   const requestHeaders = await headers();
-  const technique: SampleTechnique = requestHeaders.get('host')?.endsWith(':3101') ? 'xafs' : 'xrd';
+  const technique: SampleTechnique = requestHeaders.get('host')?.endsWith(':1002') ? 'xafs' : 'xrd';
   const instrument = dashboardSnapshot.instruments.find((item) => item.technique === technique);
   if (!instrument) return null;
 

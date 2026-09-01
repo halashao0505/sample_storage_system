@@ -39,5 +39,5 @@ start "Sample Platform API" cmd /k "cd /d ""%~dp0"" && python main.py"
 start "XAFS Sample Platform" cmd /k "cd /d ""%~dp0web"" && npm run start:xafs"
 start "XRD Sample Platform" cmd /k "cd /d ""%~dp0web"" && npm run start:xrd"
 ping 127.0.0.1 -n 4 >nul
-start "" "http://localhost:3101/"
-start "" "http://localhost:3102/"
+start "" "http://localhost:1002/"
+start "" "http://localhost:1001/"

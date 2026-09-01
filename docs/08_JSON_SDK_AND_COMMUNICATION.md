@@ -6,8 +6,8 @@
 XAFS 控制程序 ─┐
                 ├─ Python SDK / JSON POST → 127.0.0.1:3200 → 运行快照缓存
 XRD 控制程序 ──┘                                      │
-                                                      ├─ XAFS 页面 3101（3 秒 GET）
-                                                      └─ XRD 页面 3102（3 秒 GET）
+                                                      ├─ XAFS 页面 1002（3 秒 GET）
+                                                      └─ XRD 页面 1001（3 秒 GET）
 ```
 
 SDK 1.1 默认使用 HTTP/1.1 Keep-Alive：同一个 Client 每 3 秒上报时复用 TCP 连接，连接意外关闭后自动重连一次。初学者接入与局域网配置见 `09_BEGINNER_CONNECTION_GUIDE.md`。
