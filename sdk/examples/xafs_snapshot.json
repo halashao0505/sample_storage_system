@@ -28,6 +28,69 @@
       "duration": "14m 06s",
       "progress": 72,
       "tags": ["金属标准样", "K-edge"]
+    },
+    {
+      "id": "ZJUT-260831-030",
+      "name": "Co foil",
+      "applicant": "陈晨",
+      "group": "催化组",
+      "technique": "xafs",
+      "instrument": "XAFS-01",
+      "state": "completed",
+      "startedAt": "09:02",
+      "duration": "12m 18s",
+      "progress": 100,
+      "tags": ["金属标准样", "已归档"]
+    },
+    {
+      "id": "ZJUT-260831-029",
+      "name": "TiO₂ pellet",
+      "applicant": "周倩",
+      "group": "材料表征组",
+      "technique": "xafs",
+      "instrument": "XAFS-01",
+      "state": "completed",
+      "startedAt": "08:28",
+      "duration": "18m 44s",
+      "progress": 100,
+      "tags": ["氧化物", "K-edge"]
+    },
+    {
+      "id": "ZJUT-260831-024",
+      "name": "Alloy-A3",
+      "applicant": "赵敏",
+      "group": "合金组",
+      "technique": "xafs",
+      "instrument": "XAFS-01",
+      "state": "failed",
+      "startedAt": "07:42",
+      "duration": "16m 20s",
+      "progress": 38,
+      "tags": ["需复测", "信号异常"]
+    },
+    {
+      "id": "ZJUT-260831-023",
+      "name": "Cu foil",
+      "applicant": "刘洋",
+      "group": "材料表征组",
+      "technique": "xafs",
+      "instrument": "XAFS-01",
+      "state": "queued",
+      "startedAt": "10:06",
+      "duration": "—",
+      "tags": ["金属标准样"]
+    },
+    {
+      "id": "ZJUT-260831-022",
+      "name": "ZnO powder",
+      "applicant": "林浩",
+      "group": "催化组",
+      "technique": "xafs",
+      "instrument": "XAFS-01",
+      "state": "queued",
+      "startedAt": "10:28",
+      "duration": "—",
+      "tags": ["粉末", "氧化物"]
     }
   ],
   "queue": [
@@ -38,6 +101,38 @@
       "technique": "xafs",
       "scheduledAt": "10:06",
       "estimate": "18 min"
+    },
+    {
+      "position": 2,
+      "sampleId": "ZJUT-260831-022",
+      "sampleName": "ZnO powder",
+      "technique": "xafs",
+      "scheduledAt": "10:28",
+      "estimate": "24 min"
+    },
+    {
+      "position": 3,
+      "sampleId": "ZJUT-260831-018",
+      "sampleName": "Carbon paper",
+      "technique": "xafs",
+      "scheduledAt": "10:52",
+      "estimate": "16 min"
+    },
+    {
+      "position": 4,
+      "sampleId": "ZJUT-260831-017",
+      "sampleName": "CeO₂ powder",
+      "technique": "xafs",
+      "scheduledAt": "11:08",
+      "estimate": "22 min"
+    },
+    {
+      "position": 5,
+      "sampleId": "ZJUT-260831-016",
+      "sampleName": "FeNi alloy",
+      "technique": "xafs",
+      "scheduledAt": "11:30",
+      "estimate": "20 min"
     }
   ],
   "trends": {

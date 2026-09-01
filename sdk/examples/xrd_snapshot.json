@@ -28,6 +28,69 @@
       "duration": "12m 40s",
       "progress": 46,
       "tags": ["薄膜", "广角衍射"]
+    },
+    {
+      "id": "ZJUT-260831-026",
+      "name": "Fe₂O₃ standard",
+      "applicant": "李四",
+      "group": "催化组",
+      "technique": "xrd",
+      "instrument": "D9-XRD-01",
+      "state": "completed",
+      "startedAt": "08:52",
+      "duration": "18m 12s",
+      "progress": 100,
+      "tags": ["标准样", "氧化物"]
+    },
+    {
+      "id": "ZJUT-260831-025",
+      "name": "Si powder",
+      "applicant": "王五",
+      "group": "结构材料组",
+      "technique": "xrd",
+      "instrument": "D9-XRD-01",
+      "state": "completed",
+      "startedAt": "08:05",
+      "duration": "21m 48s",
+      "progress": 100,
+      "tags": ["粉末", "标定"]
+    },
+    {
+      "id": "ZJUT-260831-019",
+      "name": "Al₂O₃ pellet",
+      "applicant": "陈晨",
+      "group": "陶瓷组",
+      "technique": "xrd",
+      "instrument": "D9-XRD-01",
+      "state": "failed",
+      "startedAt": "07:36",
+      "duration": "14m 05s",
+      "progress": 31,
+      "tags": ["需复测", "峰形异常"]
+    },
+    {
+      "id": "ZJUT-260831-021",
+      "name": "Si wafer",
+      "applicant": "林浩",
+      "group": "半导体组",
+      "technique": "xrd",
+      "instrument": "D9-XRD-01",
+      "state": "queued",
+      "startedAt": "10:00",
+      "duration": "—",
+      "tags": ["单晶硅"]
+    },
+    {
+      "id": "ZJUT-260831-020",
+      "name": "Fe powder",
+      "applicant": "赵敏",
+      "group": "结构材料组",
+      "technique": "xrd",
+      "instrument": "D9-XRD-01",
+      "state": "queued",
+      "startedAt": "10:18",
+      "duration": "—",
+      "tags": ["粉末", "铁基"]
     }
   ],
   "queue": [
@@ -38,6 +101,38 @@
       "technique": "xrd",
       "scheduledAt": "10:00",
       "estimate": "8 min"
+    },
+    {
+      "position": 2,
+      "sampleId": "ZJUT-260831-020",
+      "sampleName": "Fe powder",
+      "technique": "xrd",
+      "scheduledAt": "10:18",
+      "estimate": "22 min"
+    },
+    {
+      "position": 3,
+      "sampleId": "ZJUT-260831-015",
+      "sampleName": "Ni thin film",
+      "technique": "xrd",
+      "scheduledAt": "10:40",
+      "estimate": "12 min"
+    },
+    {
+      "position": 4,
+      "sampleId": "ZJUT-260831-014",
+      "sampleName": "LiFePO₄ powder",
+      "technique": "xrd",
+      "scheduledAt": "10:52",
+      "estimate": "26 min"
+    },
+    {
+      "position": 5,
+      "sampleId": "ZJUT-260831-013",
+      "sampleName": "Glass substrate",
+      "technique": "xrd",
+      "scheduledAt": "11:18",
+      "estimate": "15 min"
     }
   ],
   "trends": {
