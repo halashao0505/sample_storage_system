@@ -320,5 +320,14 @@ body { background:radial-gradient(ellipse 68rem 48rem at 80% -14%,rgb(182 207 25
 .xrd .sample-donut .donut-head::after { box-shadow:0 0 5px #fff,0 0 13px rgb(35 139 163 / 90%); }
 @keyframes donut-orbit { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 @keyframes comet-tail { from { opacity:1; filter:saturate(1.18) brightness(.92); } to { opacity:.28; filter:saturate(.56) brightness(1.24); } }
+
+/* 大屏由网格吃满品牌区后的剩余空间，避免底部出现比左右更宽的空白。 */
+@media (min-width:961px) {
+  .readonly-board { display:flex; flex-direction:column; }
+  .readonly-grid { flex:1; height:auto; }
+}
+@media (min-width:1400px) {
+  .readonly-board { padding-bottom:clamp(8px,.7vw,14px); }
+}
 @keyframes comet-head { from { transform:translate(-50%,-10%) scale(1.35); opacity:1; background:var(--donut-running-solid); } to { transform:translate(-50%,-10%) scale(.52); opacity:.3; background:#f7fbff; } }
 @media (prefers-reduced-motion:reduce) { .sample-donut .donut-orbit,.sample-donut .donut-head { animation:none; } }
